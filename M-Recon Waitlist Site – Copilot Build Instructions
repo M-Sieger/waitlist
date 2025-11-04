@@ -1,0 +1,1590 @@
+# 🚀 M-Recon Waitlist Site – Copilot Build Instructions
+
+**Projekt:** M-Recon MVP Waitlist Landing Page  
+**Repo:** M-Sieger/mpesa-recon  
+**Ziel:** Strukturierte Waitlist-Page für Product Validation (Woche 1)  
+**Methodischer Benchmark:** 360Volt Project-Builder-Standards  
+**Erstellt:** 2025-11-04
+
+---
+
+## 📋 PHASE 0: COPILOT INSTRUCTIONS SETUP (Zuerst!)
+
+**Ziel:** Copilot kennt Projekt-Context, bevor Code geschrieben wird.
+
+### **Task 0.1: `.github/copilot-instructions.md` erstellen**
+
+Erstelle diese Datei mit folgendem Inhalt:
+
+```markdown
+# GitHub Copilot Instructions – M-Recon Waitlist Site
+
+## 🎯 Projekt-Kontext
+
+**Product Vision:**
+M-Recon ist eine Mobile-First-App für kleine kenianische KMUs (1-10 Mitarbeiter), 
+die Safaricom M-Pesa PDF-Statements automatisch in organisierte Finanzunterlagen 
+umwandelt – für Kredit-Anträge (WEF, Banken, etc.).
+
+**Diese Waitlist-Site ist Phase 0 (Product Validation):**
+- Ziel: 30+ Email-Signups in Woche 1
+- Zielgruppe: Dukas, Mama Mbogas, Salons, kleine Shops in Nairobi
+- Launch-Kanäle: WhatsApp-Gruppen, Grace's Cousine + 10 KMU-Interviews
+- Success-Metric: 50%+ der Interviews sagen "Ja, würde Email-Adresse geben"
+
+---
+
+## 📐 Tech-Stack (für diese Waitlist-Page)
+
+**Framework:** Next.js 14 (App Router) + TypeScript 5  
+**Styling:** Tailwind CSS 3  
+**Database:** Supabase (Auth + Waitlist-Table)  
+**Email:** Resend.com (3.000 emails/mo kostenlos)  
+**Deployment:** Vercel (kostenlos)  
+**Analytics:** Plausible (privacy-friendly)
+
+**Begründung:**
+- Next.js: SEO-optimiert, schnelle Load-Times (wichtig für Mobile-Data in Kenya)
+- Tailwind: Mobile-First, schnelles Styling
+- Supabase: Schnelles Setup, Echtzeit-DB, Row-Level-Security
+- Resend: Einfache API, gute Deliverability
+- Vercel: Zero-Config Deployment, Edge-Functions
+- Plausible: GDPR-compliant, kein Cookie-Banner nötig
+
+---
+
+## 🎨 Design-Vorgaben
+
+### **Farbschema (Kenya-inspired):**
+```css
+Primary: #00A651    /* Safaricom Green */
+Secondary: #E30613  /* Kenya Red */
+Accent: #000000     /* Kenya Black */
+Background: #F8F9FA /* Clean Grey */
+Text: #1A1A1A       /* Dark Grey */
+```
+
+### **Typography:**
+- **Headlines:** Inter 700 (Bold)
+- **Body:** Inter 400 (Regular)
+- **Mobile-First:** Base-Font 16px (readable ohne Zoom)
+
+### **Responsive:**
+- Mobile: 320px - 768px (80% der Kenyan Users)
+- Tablet: 768px - 1024px
+- Desktop: 1024px+
+
+### **Performance-Ziele:**
+- LCP <2s (wichtig für Mobile-Data)
+- FCP <1s
+- Image-Compression: WebP, <200KB pro Image
+- Lazy-Loading für Below-Fold-Content
+
+---
+
+## 📂 Ordnerstruktur (Next.js 14 App Router)
+
+```
+mpesa-recon/
+├── app/
+│   ├── layout.tsx           [Root-Layout, Meta-Tags, Analytics]
+│   ├── page.tsx              [Landing-Page (alle Sections)]
+│   ├── api/
+│   │   └── waitlist/
+│   │       └── route.ts     [POST /api/waitlist - Form-Submission]
+│   └── success/
+│       └── page.tsx          [Success-Page nach Signup]
+├── components/
+│   ├── Hero.tsx              [Hero-Section + CTA]
+│   ├── ProblemSection.tsx    [Pain-Points visualisiert]
+│   ├── SolutionSection.tsx   [How M-Recon Works]
+│   ├── WaitlistForm.tsx      [Email-Form + Validation]
+│   ├── FAQ.tsx               [Accordion-FAQ]
+│   └── Footer.tsx            [Contact + Social]
+├── lib/
+│   ├── supabase.ts           [Supabase-Client]
+│   ├── email.ts              [Resend-API für Confirmation-Email]
+│   └── validations.ts        [Zod-Schemas für Form]
+├── types/
+│   └── waitlist.ts           [TypeScript-Types]
+├── public/
+│   ├── og-image.png          [1200x630px für Social-Media-Preview]
+│   └── favicon.ico
+├── .env.example              [Environment-Variables mit Kommentaren]
+├── .github/
+│   ├── copilot-instructions.md  [Diese Datei]
+│   └── workflows/
+│       └── ci.yml            [Vercel-Preview-Deployment]
+└── docs/
+    ├── PRODUCT-VISION.md     [Primary SoT]
+    └── WAITLIST-PLAN.md      [Dieser Plan]
+```
+
+---
+
+## 🔐 Environment Variables
+
+```bash
+# Supabase (von supabase.com Dashboard)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+
+# Resend (von resend.com Dashboard)
+RESEND_API_KEY=re_your_api_key
+
+# Plausible (optional)
+NEXT_PUBLIC_PLAUSIBLE_DOMAIN=m-recon.vercel.app
+```
+
+---
+
+## 📊 Supabase Schema
+
+```sql
+-- Waitlist-Table
+CREATE TABLE waitlist_signups (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email VARCHAR(255) NOT NULL UNIQUE,
+  phone VARCHAR(20) NOT NULL,
+  business_type VARCHAR(100) NOT NULL,
+  transactions_per_month VARCHAR(20),
+  referral_source VARCHAR(255),
+  created_at TIMESTAMP DEFAULT NOW(),
+  email_confirmed BOOLEAN DEFAULT FALSE,
+  notes TEXT
+);
+
+-- Index für Performance
+CREATE INDEX idx_email ON waitlist_signups(email);
+CREATE INDEX idx_created_at ON waitlist_signups(created_at DESC);
+
+-- Row Level Security (RLS)
+ALTER TABLE waitlist_signups ENABLE ROW LEVEL SECURITY;
+
+-- Policy: Public kann INSERTen (für Waitlist-Form)
+CREATE POLICY "Allow public insert" ON waitlist_signups
+  FOR INSERT TO anon
+  WITH CHECK (true);
+
+-- Policy: Nur Authenticated kann SELECTen (für Admin-Dashboard später)
+CREATE POLICY "Allow authenticated read" ON waitlist_signups
+  FOR SELECT TO authenticated
+  USING (true);
+```
+
+---
+
+## 🧪 Testing-Strategie
+
+### **Manual Testing (vor Deployment):**
+- [ ] Form-Submission funktioniert (Email landet in Supabase)
+- [ ] Validation funktioniert (Email-Format, Kenya-Phone-Format)
+- [ ] Confirmation-Email wird versendet (Resend)
+- [ ] Success-Page wird angezeigt
+- [ ] Mobile-Responsiveness (Chrome DevTools Mobile-View)
+- [ ] Performance: Lighthouse-Score >90 (Mobile)
+
+### **Automated Testing (optional für später):**
+- Unit-Tests: Zod-Validations (Vitest)
+- E2E-Tests: Form-Submission (Playwright)
+
+---
+
+## 🚀 Deployment-Workflow
+
+### **1. Development:**
+```bash
+pnpm install
+pnpm run dev  # http://localhost:3000
+```
+
+### **2. Vercel-Deployment:**
+```bash
+# Automatisch bei Push zu main
+git push origin main
+
+# Preview-Deployment bei Pull-Request
+git checkout -b feature/form-validation
+git push origin feature/form-validation
+# → Vercel erstellt Preview-URL
+```
+
+### **3. Custom Domain (optional):**
+- Kaufe Domain: `m-recon.com` (~$10/Jahr bei Namecheap)
+- Vercel-Dashboard: Settings → Domains → Add Domain
+- Nameservers auf Vercel umstellen
+
+---
+
+## 📈 Analytics-Setup
+
+### **Plausible (privacy-friendly, kein Cookie-Banner):**
+```tsx
+// app/layout.tsx
+<Script
+  defer
+  data-domain="m-recon.vercel.app"
+  src="https://plausible.io/js/script.js"
+/>
+```
+
+**Track Custom Events:**
+```tsx
+// Nach Form-Submission
+window.plausible('Waitlist Signup', {
+  props: { business_type: formData.businessType }
+});
+```
+
+---
+
+## 🎯 Code-Style & Best Practices
+
+### **TypeScript:**
+- Strict-Mode aktiviert (`tsconfig.json`)
+- Keine `any`-Types (verwende `unknown` falls nötig)
+- Alle Funktionen haben Return-Types
+
+### **React-Components:**
+- Server-Components by default (Next.js 14 App Router)
+- Client-Components nur wo nötig (`'use client'` für Interaktivität)
+- Props mit TypeScript-Interfaces
+
+### **Tailwind:**
+- Mobile-First Breakpoints (`sm:`, `md:`, `lg:`)
+- Utility-Classes statt Custom-CSS
+- Wiederverwendbare Styles via `@apply` (sparsam)
+
+### **Accessibility:**
+- Semantic HTML (`<button>`, `<nav>`, `<main>`)
+- ARIA-Labels für Icons
+- Keyboard-Navigation (Tab-Order)
+- Contrast-Ratio ≥4.5:1 (WCAG AA)
+
+### **Performance:**
+- Images: Next.js `<Image>` Component (automatische Optimierung)
+- Lazy-Loading: `loading="lazy"` für Below-Fold-Images
+- Code-Splitting: Automatisch durch Next.js
+
+---
+
+## 🔄 Git-Workflow
+
+### **Branch-Naming:**
+- `feature/form-validation`
+- `fix/mobile-layout`
+- `docs/update-readme`
+
+### **Commit-Format (Conventional Commits):**
+```bash
+feat: add email validation to waitlist form
+fix: mobile hero image overflow
+docs: update README with deployment steps
+chore: update dependencies
+```
+
+### **Pull-Request-Checklist:**
+- [ ] Code läuft lokal (`pnpm run dev`)
+- [ ] TypeScript-Check grün (`pnpm run type-check`)
+- [ ] Linting grün (`pnpm run lint`)
+- [ ] Mobile-Responsive getestet (Chrome DevTools)
+- [ ] Screenshots im PR (vor/nach)
+
+---
+
+## 📚 Primary Source of Truth (SoT)
+
+**Wenn Konflikte entstehen, diese Hierarchie:**
+1. `/docs/PRODUCT-VISION.md` (Was wird gebaut? Warum?)
+2. `.github/copilot-instructions.md` (Diese Datei – Tech-Stack, Struktur)
+3. `/docs/WAITLIST-PLAN.md` (Task-by-Task-Plan)
+4. Code-Comments (Inline-Erklärungen für komplexe Logik)
+
+---
+
+## 💡 Copilot-Verhalten
+
+### **Wenn ich Frage: "Implementiere Task X"**
+1. Lese `/docs/WAITLIST-PLAN.md` für Task-Details
+2. Checke diese Datei für Tech-Stack & Code-Style
+3. Implementiere Task mit TypeScript Strict-Mode
+4. Füge Inline-Comments hinzu (deutsch, für komplexe Logik)
+5. Sage mir: "✅ Task X fertig. Nächster Task: [Y]?"
+
+### **Wenn ich sage: "Erklär mir das"**
+1. User-Explanation (2-3 Sätze, deutsch, non-technical)
+2. Technical-Explanation (Code-Details, für Devs)
+3. Frage: "Soll ich weitermachen mit Task [Y]?"
+
+### **Wenn ich sage: "Das funktioniert nicht"**
+1. Frage nach Error-Message (Screenshot oder Text)
+2. Debugge Schritt-für-Schritt
+3. Erkläre die Lösung (warum war das falsch?)
+
+---
+
+**Ende der Copilot Instructions** 🎯
+```
+
+**Acceptance Criteria:**
+- [ ] `.github/copilot-instructions.md` erstellt
+- [ ] Alle Sections vollständig (Tech-Stack, Struktur, Code-Style)
+- [ ] Supabase-Schema dokumentiert
+- [ ] Environment-Variables dokumentiert
+
+**User-Explanation:**
+> Diese Datei ist der "Kontext" für Copilot – damit er weiß, welche 
+> Technologien du nutzt, wie dein Projekt strukturiert ist und welche 
+> Code-Style-Regeln gelten. Copilot liest diese Datei automatisch, 
+> wenn du Code anforderst.
+
+---
+
+## 📋 PHASE 1: MARKDOWN-PLAN ERSTELLEN
+
+**Ziel:** Schritt-für-Schritt-Plan, den Copilot abarbeiten kann.
+
+### **Task 1.1: `/docs/WAITLIST-PLAN.md` erstellen**
+
+Erstelle diese Datei mit folgendem Inhalt:
+
+```markdown
+# M-Recon Waitlist Site – Build Plan
+
+**Status:** 🔄 In Progress  
+**Start:** 2025-11-04  
+**Ziel:** Lauffähige Waitlist-Page deployed auf Vercel  
+**Timeline:** 1-2 Tage (8-12 Stunden)
+
+---
+
+## 🎯 Milestones
+
+- [ ] **M1:** Projekt-Setup (Dependencies, Config-Files)
+- [ ] **M2:** Supabase-Setup (Database + Table + RLS)
+- [ ] **M3:** Landing-Page (Hero + Problem + Solution)
+- [ ] **M4:** Waitlist-Form (Validation + API + Email)
+- [ ] **M5:** Polish (FAQ, Footer, Meta-Tags)
+- [ ] **M6:** Deployment (Vercel + Custom Domain)
+
+---
+
+## 📦 MILESTONE 1: PROJEKT-SETUP
+
+### **Task 1.1: Next.js-Projekt initialisieren**
+
+```bash
+# Im mpesa-recon-Repo (Root)
+pnpx create-next-app@latest . --typescript --tailwind --app --no-src-dir
+
+# Optionen wählen:
+# ✅ TypeScript
+# ✅ Tailwind CSS
+# ✅ App Router
+# ❌ src/ directory (wir nutzen app/ direkt)
+# ✅ Import alias (@/*)
+```
+
+**Expected Output:**
+```
+✅ package.json erstellt
+✅ tsconfig.json erstellt
+✅ tailwind.config.ts erstellt
+✅ app/layout.tsx erstellt
+✅ app/page.tsx erstellt
+✅ next.config.js erstellt
+```
+
+**Validation:**
+```bash
+pnpm install
+pnpm run dev  # http://localhost:3000 sollte starten
+```
+
+---
+
+### **Task 1.2: Dependencies installieren**
+
+```bash
+# Supabase-Client
+pnpm add @supabase/supabase-js
+
+# Resend (Email-API)
+pnpm add resend
+
+# Zod (Validations)
+pnpm add zod
+
+# React Hook Form
+pnpm add react-hook-form @hookform/resolvers
+
+# Icons (Lucide React)
+pnpm add lucide-react
+
+# Dev-Dependencies
+pnpm add -D @types/node
+```
+
+**Expected Output:**
+```
+✅ Alle Dependencies in package.json
+✅ pnpm-lock.yaml erstellt
+✅ node_modules/ erstellt
+```
+
+---
+
+### **Task 1.3: Config-Files anpassen**
+
+#### **`tailwind.config.ts`:**
+```typescript
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#00A651',    // Safaricom Green
+        secondary: '#E30613',  // Kenya Red
+        accent: '#000000',     // Kenya Black
+        background: '#F8F9FA', // Clean Grey
+        text: '#1A1A1A',       // Dark Grey
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
+    },
+  },
+  plugins: [],
+}
+export default config
+```
+
+#### **`.env.example`:**
+```bash
+# Supabase (get from supabase.com Dashboard)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+
+# Resend (get from resend.com Dashboard)
+RESEND_API_KEY=re_your_api_key
+
+# Plausible Analytics (optional)
+NEXT_PUBLIC_PLAUSIBLE_DOMAIN=m-recon.vercel.app
+```
+
+#### **`.env.local`:** (User muss selber ausfüllen)
+```bash
+# Copy from .env.example and fill with real values
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+RESEND_API_KEY=
+```
+
+#### **`.gitignore`:** (add if not present)
+```
+.env.local
+.env*.local
+```
+
+---
+
+### **Task 1.4: Ordnerstruktur erstellen**
+
+```bash
+mkdir -p components lib types public/images docs
+touch lib/supabase.ts lib/email.ts lib/validations.ts types/waitlist.ts
+```
+
+**Expected Output:**
+```
+mpesa-recon/
+├── app/
+├── components/    [✅ erstellt]
+├── lib/           [✅ erstellt]
+├── types/         [✅ erstellt]
+├── public/images/ [✅ erstellt]
+└── docs/          [✅ erstellt]
+```
+
+---
+
+### **Task 1.5: TypeScript-Types definieren**
+
+#### **`types/waitlist.ts`:**
+```typescript
+export interface WaitlistFormData {
+  email: string;
+  phone: string;
+  businessType: string;
+  transactionsPerMonth?: string;
+  referralSource?: string;
+}
+
+export interface WaitlistSignup extends WaitlistFormData {
+  id: string;
+  created_at: string;
+  email_confirmed: boolean;
+  notes?: string;
+}
+```
+
+---
+
+**Milestone 1 Complete:**
+- [ ] Next.js-Projekt initialisiert
+- [ ] Dependencies installiert
+- [ ] Config-Files angepasst (Tailwind, .env.example)
+- [ ] Ordnerstruktur erstellt
+- [ ] TypeScript-Types definiert
+- [ ] `pnpm run dev` läuft ohne Errors
+
+---
+
+## 🗄️ MILESTONE 2: SUPABASE-SETUP
+
+### **Task 2.1: Supabase-Projekt erstellen**
+
+**Manual Steps (User macht das):**
+1. Gehe zu [supabase.com](https://supabase.com)
+2. Sign up / Login
+3. Klicke "New Project"
+4. Name: `m-recon-waitlist`
+5. Region: `eu-central-1` (oder closest zu Kenya)
+6. Passwort: [stark generieren + speichern]
+7. Warte 2 Min bis Projekt bereit ist
+
+**Copilot wartet:** "✅ Hast du Supabase-Projekt erstellt? Sage mir Bescheid, dann gebe ich dir das SQL-Schema."
+
+---
+
+### **Task 2.2: Supabase-Tabelle erstellen**
+
+**User öffnet:** Supabase Dashboard → SQL Editor → New Query
+
+**Copilot gibt SQL:**
+```sql
+-- Waitlist-Table
+CREATE TABLE waitlist_signups (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email VARCHAR(255) NOT NULL UNIQUE,
+  phone VARCHAR(20) NOT NULL,
+  business_type VARCHAR(100) NOT NULL,
+  transactions_per_month VARCHAR(20),
+  referral_source VARCHAR(255),
+  created_at TIMESTAMP DEFAULT NOW(),
+  email_confirmed BOOLEAN DEFAULT FALSE,
+  notes TEXT
+);
+
+-- Index für Performance
+CREATE INDEX idx_email ON waitlist_signups(email);
+CREATE INDEX idx_created_at ON waitlist_signups(created_at DESC);
+
+-- Row Level Security (RLS)
+ALTER TABLE waitlist_signups ENABLE ROW LEVEL SECURITY;
+
+-- Policy: Public kann INSERTen (für Waitlist-Form)
+CREATE POLICY "Allow public insert" ON waitlist_signups
+  FOR INSERT TO anon
+  WITH CHECK (true);
+
+-- Policy: Nur Authenticated kann SELECTen (für Admin-Dashboard später)
+CREATE POLICY "Allow authenticated read" ON waitlist_signups
+  FOR SELECT TO authenticated
+  USING (true);
+```
+
+**User:** Klickt "Run" → Tabelle wird erstellt
+
+---
+
+### **Task 2.3: Supabase-Client konfigurieren**
+
+#### **`lib/supabase.ts`:**
+```typescript
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing Supabase environment variables. Check .env.local');
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+```
+
+---
+
+### **Task 2.4: Validations definieren (Zod)**
+
+#### **`lib/validations.ts`:**
+```typescript
+import { z } from 'zod';
+
+export const waitlistSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Invalid email format'),
+  
+  phone: z
+    .string()
+    .min(1, 'Phone number is required')
+    .regex(
+      /^\+254[0-9]{9}$/,
+      'Phone must be in format +254712345678'
+    ),
+  
+  businessType: z
+    .string()
+    .min(1, 'Please select a business type'),
+  
+  transactionsPerMonth: z.string().optional(),
+  
+  referralSource: z.string().optional(),
+});
+
+export type WaitlistFormData = z.infer<typeof waitlistSchema>;
+```
+
+---
+
+**Milestone 2 Complete:**
+- [ ] Supabase-Projekt erstellt (User)
+- [ ] Tabelle `waitlist_signups` erstellt (SQL)
+- [ ] RLS-Policies konfiguriert
+- [ ] Supabase-Client konfiguriert (`lib/supabase.ts`)
+- [ ] Zod-Validations definiert (`lib/validations.ts`)
+
+---
+
+## 🎨 MILESTONE 3: LANDING-PAGE (Hero + Problem + Solution)
+
+### **Task 3.1: Root-Layout anpassen**
+
+#### **`app/layout.tsx`:**
+```typescript
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Script from 'next/script';
+
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'M-Recon – M-Pesa Bookkeeping for Kenyan SMEs',
+  description: 'Turn your Safaricom M-Pesa PDF into organized financial records in 2 minutes. Built for small Kenyan businesses.',
+  openGraph: {
+    title: 'M-Recon – M-Pesa Bookkeeping for Kenyan SMEs',
+    description: 'Stop wasting 20 hours every month on M-Pesa bookkeeping.',
+    url: 'https://m-recon.vercel.app',
+    siteName: 'M-Recon',
+    images: [
+      {
+        url: '/og-image.png', // 1200x630px
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_KE',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'M-Recon – M-Pesa Bookkeeping for Kenyan SMEs',
+    description: 'Stop wasting 20 hours every month on M-Pesa bookkeeping.',
+    images: ['/og-image.png'],
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <head>
+        {/* Plausible Analytics (privacy-friendly) */}
+        <Script
+          defer
+          data-domain="m-recon.vercel.app"
+          src="https://plausible.io/js/script.js"
+        />
+      </head>
+      <body className={inter.className}>{children}</body>
+    </html>
+  );
+}
+```
+
+---
+
+### **Task 3.2: Hero-Component erstellen**
+
+#### **`components/Hero.tsx`:**
+```typescript
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+
+export default function Hero() {
+  return (
+    <section className="bg-gradient-to-b from-primary/10 to-background min-h-[80vh] flex items-center">
+      <div className="container mx-auto px-4 py-16 md:py-24">
+        <div className="max-w-3xl mx-auto text-center">
+          {/* Headline */}
+          <h1 className="text-4xl md:text-6xl font-bold text-text mb-6 leading-tight">
+            Stop Wasting 20 Hours Every Month on{' '}
+            <span className="text-primary">M-Pesa Bookkeeping</span>
+          </h1>
+          
+          {/* Subheadline */}
+          <p className="text-lg md:text-xl text-text/80 mb-8">
+            Turn your Safaricom PDF into organized financial records in 2 minutes.
+            <br />
+            Built for small Kenyan businesses.
+          </p>
+          
+          {/* CTA Button */}
+          <Link
+            href="#waitlist"
+            className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors"
+          >
+            Join Waitlist – First 100 Get Lifetime Free
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+          
+          {/* Social Proof */}
+          <p className="mt-6 text-sm text-text/60">
+            🎉 <strong>127 small businesses</strong> already joined
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+### **Task 3.3: Problem-Section erstellen**
+
+#### **`components/ProblemSection.tsx`:**
+```typescript
+import { FileText, Lock, CreditCard } from 'lucide-react';
+
+const problems = [
+  {
+    icon: FileText,
+    title: 'Spending hours copying M-Pesa statements to Excel',
+    description: 'Every month, you manually type 200+ transactions. It\'s exhausting.',
+  },
+  {
+    icon: Lock,
+    title: 'Password-protected PDFs are a nightmare',
+    description: 'Safaricom locks your statement. You can\'t copy, can\'t search.',
+  },
+  {
+    icon: CreditCard,
+    title: 'Loan applications rejected due to "insufficient records"',
+    description: 'Banks and WEF need clean records. Your Excel sheets aren\'t enough.',
+  },
+];
+
+export default function ProblemSection() {
+  return (
+    <section className="py-16 md:py-24 bg-white">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-text mb-12">
+          The Problem Every Small Business Faces
+        </h2>
+        
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {problems.map((problem, index) => (
+            <div key={index} className="text-center">
+              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <problem.icon className="w-8 h-8 text-secondary" />
+              </div>
+              <h3 className="text-lg font-semibold text-text mb-2">
+                {problem.title}
+              </h3>
+              <p className="text-text/70">
+                {problem.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+### **Task 3.4: Solution-Section erstellen**
+
+#### **`components/SolutionSection.tsx`:**
+```typescript
+import { Upload, Zap, FileCheck } from 'lucide-react';
+
+const steps = [
+  {
+    icon: Upload,
+    step: '1',
+    title: 'Upload your Safaricom M-Pesa statement',
+    description: 'PDF, CSV, or Screenshot – we handle password-protected files.',
+  },
+  {
+    icon: Zap,
+    step: '2',
+    title: 'We parse it automatically',
+    description: '2 minutes later, your data is organized and categorized.',
+  },
+  {
+    icon: FileCheck,
+    step: '3',
+    title: 'Get organized records ready for loan applications',
+    description: 'Export to Excel, PDF, or share directly with banks/WEF.',
+  },
+];
+
+export default function SolutionSection() {
+  return (
+    <section className="py-16 md:py-24 bg-background">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-text mb-12">
+          How M-Recon Works
+        </h2>
+        
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {steps.map((stepItem, index) => (
+            <div key={index} className="relative">
+              {/* Step-Number */}
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center text-xl font-bold">
+                {stepItem.step}
+              </div>
+              
+              {/* Card */}
+              <div className="bg-white p-6 rounded-lg shadow-sm pt-8">
+                <stepItem.icon className="w-12 h-12 text-primary mb-4" />
+                <h3 className="text-lg font-semibold text-text mb-2">
+                  {stepItem.title}
+                </h3>
+                <p className="text-text/70">
+                  {stepItem.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+### **Task 3.5: Landing-Page zusammenbauen**
+
+#### **`app/page.tsx`:**
+```typescript
+import Hero from '@/components/Hero';
+import ProblemSection from '@/components/ProblemSection';
+import SolutionSection from '@/components/SolutionSection';
+
+export default function Home() {
+  return (
+    <main>
+      <Hero />
+      <ProblemSection />
+      <SolutionSection />
+      {/* WaitlistForm + FAQ + Footer kommen in Milestone 4 & 5 */}
+    </main>
+  );
+}
+```
+
+---
+
+**Milestone 3 Complete:**
+- [ ] Root-Layout mit Meta-Tags + Analytics
+- [ ] Hero-Component (Headline + CTA)
+- [ ] Problem-Section (3 Pain-Points)
+- [ ] Solution-Section (3-Step-Flow)
+- [ ] Landing-Page rendert alle Sections
+- [ ] Mobile-Responsive getestet (Chrome DevTools)
+
+**Validation:** `pnpm run dev` → http://localhost:3000 zeigt Hero + Problem + Solution
+
+---
+
+## 📝 MILESTONE 4: WAITLIST-FORM (Validation + API + Email)
+
+### **Task 4.1: WaitlistForm-Component erstellen**
+
+#### **`components/WaitlistForm.tsx`:**
+```typescript
+'use client';
+
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { waitlistSchema, type WaitlistFormData } from '@/lib/validations';
+import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
+
+export default function WaitlistForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<WaitlistFormData>({
+    resolver: zodResolver(waitlistSchema),
+  });
+
+  const onSubmit = async (data: WaitlistFormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Something went wrong');
+      }
+
+      // Success
+      setSubmitSuccess(true);
+      reset();
+      
+      // Track event (Plausible)
+      if (typeof window !== 'undefined' && (window as any).plausible) {
+        (window as any).plausible('Waitlist Signup', {
+          props: { business_type: data.businessType },
+        });
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert(error instanceof Error ? error.message : 'Failed to submit form');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (submitSuccess) {
+    return (
+      <div className="bg-primary/10 border border-primary rounded-lg p-8 text-center">
+        <h3 className="text-2xl font-bold text-primary mb-2">
+          🎉 You're on the list!
+        </h3>
+        <p className="text-text/80">
+          We'll notify you when M-Recon launches.
+          <br />
+          Check your email for confirmation.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto space-y-6">
+      {/* Email */}
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-text mb-2">
+          Email Address *
+        </label>
+        <input
+          id="email"
+          type="email"
+          {...register('email')}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          placeholder="your@email.com"
+        />
+        {errors.email && (
+          <p className="mt-1 text-sm text-secondary">{errors.email.message}</p>
+        )}
+      </div>
+
+      {/* Phone */}
+      <div>
+        <label htmlFor="phone" className="block text-sm font-medium text-text mb-2">
+          Phone Number *
+        </label>
+        <input
+          id="phone"
+          type="tel"
+          {...register('phone')}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          placeholder="+254712345678"
+        />
+        {errors.phone && (
+          <p className="mt-1 text-sm text-secondary">{errors.phone.message}</p>
+        )}
+      </div>
+
+      {/* Business Type */}
+      <div>
+        <label htmlFor="businessType" className="block text-sm font-medium text-text mb-2">
+          Business Type *
+        </label>
+        <select
+          id="businessType"
+          {...register('businessType')}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+        >
+          <option value="">Select business type...</option>
+          <option value="duka">Duka/Shop</option>
+          <option value="salon">Salon/Barbershop</option>
+          <option value="restaurant">Restaurant/Cafe</option>
+          <option value="transport">Transport/Boda</option>
+          <option value="tailoring">Tailoring/Textiles</option>
+          <option value="other">Other</option>
+        </select>
+        {errors.businessType && (
+          <p className="mt-1 text-sm text-secondary">{errors.businessType.message}</p>
+        )}
+      </div>
+
+      {/* Transactions Per Month (optional) */}
+      <div>
+        <label htmlFor="transactionsPerMonth" className="block text-sm font-medium text-text mb-2">
+          Transactions Per Month (optional)
+        </label>
+        <select
+          id="transactionsPerMonth"
+          {...register('transactionsPerMonth')}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+        >
+          <option value="">Select range...</option>
+          <option value="<30">&lt;30 (Free Tier)</option>
+          <option value="30-100">30-100</option>
+          <option value="100+">100+</option>
+        </select>
+      </div>
+
+      {/* Referral Source (optional) */}
+      <div>
+        <label htmlFor="referralSource" className="block text-sm font-medium text-text mb-2">
+          How did you hear about us? (optional)
+        </label>
+        <input
+          id="referralSource"
+          type="text"
+          {...register('referralSource')}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          placeholder="WhatsApp, Friend, etc."
+        />
+      </div>
+
+      {/* Submit Button */}
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full bg-primary text-white px-6 py-4 rounded-lg font-semibold hover:bg-primary/90 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+      >
+        {isSubmitting ? (
+          <>
+            <Loader2 className="w-5 h-5 animate-spin" />
+            Joining...
+          </>
+        ) : (
+          'Join Waitlist'
+        )}
+      </button>
+
+      <p className="text-xs text-text/60 text-center">
+        By joining, you agree to receive launch updates via email.
+      </p>
+    </form>
+  );
+}
+```
+
+---
+
+### **Task 4.2: API-Route erstellen**
+
+#### **`app/api/waitlist/route.ts`:**
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+import { supabase } from '@/lib/supabase';
+import { waitlistSchema } from '@/lib/validations';
+import { sendConfirmationEmail } from '@/lib/email';
+
+export async function POST(request: NextRequest) {
+  try {
+    // Parse request body
+    const body = await request.json();
+    
+    // Validate with Zod
+    const validatedData = waitlistSchema.parse(body);
+    
+    // Insert into Supabase
+    const { data, error } = await supabase
+      .from('waitlist_signups')
+      .insert([
+        {
+          email: validatedData.email,
+          phone: validatedData.phone,
+          business_type: validatedData.businessType,
+          transactions_per_month: validatedData.transactionsPerMonth,
+          referral_source: validatedData.referralSource,
+        },
+      ])
+      .select()
+      .single();
+
+    if (error) {
+      // Check for duplicate email
+      if (error.code === '23505') {
+        return NextResponse.json(
+          { message: 'This email is already on the waitlist.' },
+          { status: 400 }
+        );
+      }
+      throw error;
+    }
+
+    // Send confirmation email
+    try {
+      await sendConfirmationEmail(validatedData.email);
+    } catch (emailError) {
+      console.error('Email send failed:', emailError);
+      // Don't fail the request if email fails
+    }
+
+    return NextResponse.json(
+      { message: 'Successfully joined waitlist!', data },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error('Waitlist API error:', error);
+    
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { message: error.message },
+        { status: 400 }
+      );
+    }
+    
+    return NextResponse.json(
+      { message: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+---
+
+### **Task 4.3: Email-Service erstellen (Resend)**
+
+#### **`lib/email.ts`:**
+```typescript
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function sendConfirmationEmail(email: string) {
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'M-Recon <hello@m-recon.com>', // Replace with your verified domain
+      to: email,
+      subject: '🎉 You're on the M-Recon Waitlist!',
+      html: `
+        <h1>Welcome to M-Recon!</h1>
+        <p>Hi there,</p>
+        <p>You're officially on the waitlist for <strong>M-Recon</strong> – the app that turns your M-Pesa statements into organized financial records in 2 minutes.</p>
+        <h2>What happens next?</h2>
+        <ul>
+          <li>📧 We'll email you when M-Recon launches (estimated: [Month Year])</li>
+          <li>🎁 As one of the first 100, you'll get <strong>lifetime free access</strong> for up to 30 transactions/month</li>
+          <li>🚀 You'll be able to test the beta version before public launch</li>
+        </ul>
+        <p>Have questions? Just reply to this email – we read every message.</p>
+        <p>Thanks for joining us!</p>
+        <p>– The M-Recon Team</p>
+        <hr />
+        <p style="font-size: 12px; color: #666;">
+          You received this email because you signed up for the M-Recon waitlist at m-recon.com.
+        </p>
+      `,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Resend email error:', error);
+    throw new Error('Failed to send confirmation email');
+  }
+}
+```
+
+---
+
+### **Task 4.4: Form in Landing-Page einfügen**
+
+#### **`app/page.tsx`:** (update)
+```typescript
+import Hero from '@/components/Hero';
+import ProblemSection from '@/components/ProblemSection';
+import SolutionSection from '@/components/SolutionSection';
+import WaitlistForm from '@/components/WaitlistForm';
+
+export default function Home() {
+  return (
+    <main>
+      <Hero />
+      <ProblemSection />
+      <SolutionSection />
+      
+      {/* Waitlist Form Section */}
+      <section id="waitlist" className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-text mb-4">
+            Join the Waitlist
+          </h2>
+          <p className="text-center text-text/70 mb-12 max-w-2xl mx-auto">
+            Be among the first 100 to get <strong>lifetime free access</strong> (up to 30 transactions/month).
+            We'll notify you when M-Recon launches.
+          </p>
+          <WaitlistForm />
+        </div>
+      </section>
+    </main>
+  );
+}
+```
+
+---
+
+**Milestone 4 Complete:**
+- [ ] WaitlistForm-Component mit Validation (Zod)
+- [ ] API-Route `/api/waitlist` (Supabase-Insert)
+- [ ] Email-Service (Resend) für Confirmation-Email
+- [ ] Form in Landing-Page integriert
+- [ ] End-to-End getestet:
+  - [ ] Form-Submission funktioniert
+  - [ ] Email landet in Supabase
+  - [ ] Confirmation-Email wird versendet
+  - [ ] Success-Message wird angezeigt
+
+**Validation:**
+1. `pnpm run dev`
+2. Gehe zu http://localhost:3000#waitlist
+3. Fülle Form aus → Submit
+4. Checke Supabase-Dashboard: Neuer Eintrag in `waitlist_signups`
+5. Checke Email-Inbox: Confirmation-Email erhalten
+
+---
+
+## ✨ MILESTONE 5: POLISH (FAQ + Footer + Meta-Tags)
+
+### **Task 5.1: FAQ-Component erstellen**
+
+#### **`components/FAQ.tsx`:**
+```typescript
+'use client';
+
+import { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+
+const faqs = [
+  {
+    question: 'How much will M-Recon cost?',
+    answer: 'KES 500/month. First 100 waitlist members get lifetime free access for up to 30 transactions/month.',
+  },
+  {
+    question: 'Do I need internet all the time?',
+    answer: 'No. Upload your PDF with internet, then access your records offline anytime.',
+  },
+  {
+    question: 'What about my data privacy?',
+    answer: 'Your financial data is encrypted and stored securely on Kenyan servers. We never share it with third parties.',
+  },
+  {
+    question: 'When will M-Recon launch?',
+    answer: 'We're targeting Q1 2026. Join the waitlist to be the first to know and test the beta!',
+  },
+  {
+    question: 'Which banks/institutions accept M-Recon records?',
+    answer: 'We're working with WEF and several Kenyan banks. Our records format meets standard loan application requirements.',
+  },
+];
+
+export default function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  return (
+    <section className="py-16 md:py-24 bg-background">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-text mb-12">
+          Frequently Asked Questions
+        </h2>
+        
+        <div className="max-w-3xl mx-auto space-y-4">
+          {faqs.map((faq, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-sm">
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full flex items-center justify-between p-6 text-left"
+              >
+                <span className="font-semibold text-text">{faq.question}</span>
+                {openIndex === index ? (
+                  <ChevronUp className="w-5 h-5 text-primary flex-shrink-0" />
+                ) : (
+                  <ChevronDown className="w-5 h-5 text-text/40 flex-shrink-0" />
+                )}
+              </button>
+              
+              {openIndex === index && (
+                <div className="px-6 pb-6 text-text/70">
+                  {faq.answer}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+### **Task 5.2: Footer-Component erstellen**
+
+#### **`components/Footer.tsx`:**
+```typescript
+import { Mail, Github, Twitter } from 'lucide-react';
+
+export default function Footer() {
+  return (
+    <footer className="bg-text text-white py-12">
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* Brand */}
+          <div>
+            <h3 className="text-2xl font-bold mb-2">M-Recon</h3>
+            <p className="text-white/70">
+              M-Pesa bookkeeping made simple for Kenyan SMEs.
+            </p>
+          </div>
+          
+          {/* Links */}
+          <div>
+            <h4 className="font-semibold mb-4">Resources</h4>
+            <ul className="space-y-2 text-white/70">
+              <li>
+                <a href="#waitlist" className="hover:text-primary transition-colors">
+                  Join Waitlist
+                </a>
+              </li>
+              <li>
+                <a href="#faq" className="hover:text-primary transition-colors">
+                  FAQ
+                </a>
+              </li>
+              <li>
+                <a href="mailto:hello@m-recon.com" className="hover:text-primary transition-colors">
+                  Contact Us
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          {/* Social */}
+          <div>
+            <h4 className="font-semibold mb-4">Connect</h4>
+            <div className="flex gap-4">
+              <a
+                href="mailto:hello@m-recon.com"
+                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="Email"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
+              <a
+                href="https://github.com/M-Sieger/mpesa-recon"
+                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="GitHub"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+              <a
+                href="https://twitter.com/m_recon"
+                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="Twitter"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        {/* Copyright */}
+        <div className="mt-8 pt-8 border-t border-white/10 text-center text-white/60">
+          <p>© 2025 M-Recon – Made for Kenyan SMEs</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+```
+
+---
+
+### **Task 5.3: FAQ + Footer in Landing-Page einfügen**
+
+#### **`app/page.tsx`:** (final)
+```typescript
+import Hero from '@/components/Hero';
+import ProblemSection from '@/components/ProblemSection';
+import SolutionSection from '@/components/SolutionSection';
+import WaitlistForm from '@/components/WaitlistForm';
+import FAQ from '@/components/FAQ';
+import Footer from '@/components/Footer';
+
+export default function Home() {
+  return (
+    <main>
+      <Hero />
+      <ProblemSection />
+      <SolutionSection />
+      
+      {/* Waitlist Form Section */}
+      <section id="waitlist" className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-text mb-4">
+            Join the Waitlist
+          </h2>
+          <p className="text-center text-text/70 mb-12 max-w-2xl mx-auto">
+            Be among the first 100 to get <strong>lifetime free access</strong> (up to 30 transactions/month).
+            We'll notify you when M-Recon launches.
+          </p>
+          <WaitlistForm />
+        </div>
+      </section>
+      
+      <FAQ />
+      <Footer />
+    </main>
+  );
+}
+```
+
+---
+
+### **Task 5.4: OG-Image erstellen**
+
+**Manual Step (User macht das):**
+
+1. Gehe zu [Canva.com](https://canva.com) (kostenlos)
+2. Template: "Open Graph Image" (1200x630px)
+3. Design:
+   - **Headline:** "M-Recon – M-Pesa Bookkeeping for Kenyan SMEs"
+   - **Subline:** "Turn your Safaricom PDF into organized records in 2 minutes"
+   - **Colors:** Safaricom Green (#00A651) + Kenya Red (#E30613)
+   - **Logo:** (falls vorhanden, sonst nur Text)
+4. Download as PNG
+5. Speichere als `public/og-image.png`
+
+**Copilot wartet:** "✅ Hast du OG-Image erstellt? Sage mir Bescheid."
+
+---
+
+**Milestone 5 Complete:**
+- [ ] FAQ-Component (Accordion)
+- [ ] Footer-Component (Links + Social)
+- [ ] FAQ + Footer in Landing-Page integriert
+- [ ] OG-Image erstellt (`public/og-image.png`)
+- [ ] Meta-Tags in `layout.tsx` korrekt (OpenGraph, Twitter)
+
+**Validation:**
+1. `pnpm run dev` → http://localhost:3000
+2. Öffne in Chrome → Rechtsklick → "Inspect" → "Application" → "Manifest" (checke Meta-Tags)
+3. Teste Social-Share-Preview: [opengraph.xyz](https://opengraph.xyz) → URL eingeben
+
+---
+
+## 🚀 MILESTONE 6: DEPLOYMENT (Vercel + Custom Domain)
+
+### **Task 6.1: Vercel-Deployment**
+
+**Manual Steps (User macht das):**
+
+1. **Push Code zu GitHub:**
+   ```bash
+   git add .
+   git commit -m "feat: waitlist site complete"
+   git push origin main
+   ```
+
+2. **Gehe zu [vercel.com](https://vercel.com):**
+   - Sign up / Login mit GitHub
+   - Klicke "Import Project"
+   - Wähle `M-Sieger/mpesa-recon` Repo
+   - Framework: Next.js (auto-detect)
+   - Root Directory: `/` (oder wo Waitlist-Site liegt)
+
+3. **Environment Variables hinzufügen:**
+   - `NEXT_PUBLIC_SUPABASE_URL` = [dein Supabase-URL]
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` = [dein Supabase-Anon-Key]
+   - `RESEND_API_KEY` = [dein Resend-API-Key]
+   - `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` = `m-recon.vercel.app`
+
+4. **Deploy:**
+   - Klicke "Deploy"
+   - Warte 2-3 Min
+   - ✅ Site ist live: `https://m-recon.vercel.app`
+
+---
+
+### **Task 6.2: Custom Domain (optional)**
+
+**Wenn User eigene Domain will:**
+
+1. **Kaufe Domain:**
+   - Gehe zu [Namecheap.com](https://namecheap.com)
+   - Suche `m-recon.com` (oder `.co.ke` für Kenya)
+   - Kaufe (~$10/Jahr)
+
+2. **Verbinde mit Vercel:**
+   - Vercel-Dashboard → Settings → Domains
+   - Klicke "Add Domain" → `m-recon.com`
+   - Vercel gibt dir DNS-Records
+
+3. **Update DNS bei Namecheap:**
+   - Namecheap-Dashboard → Domain-List → Manage
+   - Advanced DNS → Add Records:
+     - **A-Record:** `@` → `76.76.21.21` (Vercel-IP)
+     - **CNAME-Record:** `www` → `cname.vercel-dns.com`
+   - Save Changes
+
+4. **Warte 1-24h:**
+   - DNS-Propagation dauert 1-24h
+   - Checke Status: `dig m-recon.com` (Terminal)
+   - Vercel zeigt "✅ Domain Active
