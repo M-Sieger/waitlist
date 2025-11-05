@@ -1,0 +1,42 @@
+{
+  "name": "m-recon-waitlist",
+  "version": "0.1.0",
+  "private": true,
+  "description": "M-Recon Waitlist Site – Product Validation für Kenyan SME Bookkeeping App",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "m-pesa",
+    "bookkeeping",
+    "kenya",
+    "sme",
+    "waitlist"
+  ],
+  "author": "M-Sieger",
+  "license": "MIT",
+  "packageManager": "pnpm@10.13.1",
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@supabase/supabase-js": "^2.79.0",
+    "lucide-react": "^0.552.0",
+    "next": "^16.0.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.66.0",
+    "resend": "^6.4.1",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.2",
+    "autoprefixer": "10",
+    "postcss": "8",
+    "tailwindcss": "^3.4.18",
+    "typescript": "^5.9.3"
+  }
+}

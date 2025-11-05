@@ -1,0 +1,20 @@
+/**
+ * WARUM: Globale CSS-Styles + Tailwind-Imports
+ * WIE: Tailwind v3 Syntax mit @tailwind directives
+ * WAS: Wird in layout.tsx importiert (gilt für ganze App)
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Global Styles */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth Scrolling für Anchor-Links (z.B. #waitlist) */
+html {
+  scroll-behavior: smooth;
+}
