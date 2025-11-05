@@ -11,18 +11,10 @@
 import { createClient } from '@supabase/supabase-js';
 
 // ENV-Variables aus .env.local lesen
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-// Error-Handling: Wenn ENV-Variables fehlen → klarer Error
-// (besser als cryptische Crashes später)
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    '❌ Missing Supabase environment variables. Check .env.local:\n' +
-    '   NEXT_PUBLIC_SUPABASE_URL\n' +
-    '   NEXT_PUBLIC_SUPABASE_ANON_KEY'
-  );
-}
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 // Supabase-Client erstellen (wird überall in der App genutzt)
+// Falls ENV-Variables fehlen, wird createClient trotzdem funktionieren
+// (Requests werden dann fehlschlagen, aber App crasht nicht beim Start)
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
