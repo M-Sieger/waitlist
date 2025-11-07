@@ -33,7 +33,7 @@ const problems = [
   },
 ];
 
-export default function ProblemSection(): JSX.Element {
+export default function ProblemSection() {
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">

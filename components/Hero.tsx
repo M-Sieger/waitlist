@@ -11,7 +11,7 @@
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
-export default function Hero(): JSX.Element {
+export default function Hero() {
   return (
     <section className="bg-gradient-to-b from-primary/10 to-background min-h-[80vh] flex items-center">
       <div className="container mx-auto px-4 py-16 md:py-24">
