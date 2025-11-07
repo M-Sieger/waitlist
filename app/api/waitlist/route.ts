@@ -17,6 +17,9 @@ import { sendConfirmationEmail } from '@/lib/email';
 import { supabase } from '@/lib/supabase';
 import { waitlistSchema } from '@/lib/validations';
 
+// Force Node.js runtime (Edge Runtime hat Probleme mit Supabase fetch)
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     // 1. Parse Request-Body (JSON)
