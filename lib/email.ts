@@ -12,6 +12,7 @@ import { Resend } from 'resend';
 
 // Resend-Client nur initialisieren, wenn API-Key vorhanden ist
 const resendApiKey = process.env.RESEND_API_KEY ?? '';
+const resendFromEmail = process.env.RESEND_FROM_EMAIL ?? '';
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 /**
@@ -26,9 +27,13 @@ export async function sendConfirmationEmail(email: string): Promise<any> {
     return { skipped: true };
   }
 
+  if (!resendFromEmail) {
+    console.warn('RESEND_FROM_EMAIL missing - using Resend sandbox sender.');
+  }
+
   try {
     const { data, error } = await resend.emails.send({
-      from: 'M-Recon <onboarding@resend.dev>', // TODO: Replace mit hello@m-recon.com nach Domain-Verification
+      from: resendFromEmail || 'M-Recon <onboarding@resend.dev>',
       to: email,
       subject: 'You are on the M-Recon Waitlist!',
       html: `
