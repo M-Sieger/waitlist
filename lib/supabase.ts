@@ -1,6 +1,6 @@
 /**
  * WARUM: Supabase-Client für Datenbank-Zugriff (Waitlist-Signups)
- * WIE: @supabase/supabase-js mit ENV-Variables (Public-Key für Client-Side)
+ * WIE: @supabase/supabase-js mit ENV-Variables (Public Anon Key für Client-Funktionen)
  * WAS: Stellt `supabase`-Object zur Verfügung für Queries (INSERT, SELECT, etc.)
  * 
  * BEISPIEL-USE:

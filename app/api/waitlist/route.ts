@@ -14,7 +14,7 @@ import {
 } from 'next/server';
 
 import { sendConfirmationEmail } from '@/lib/email';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase-admin';
 import { waitlistSchema } from '@/lib/validations';
 
 // Force Node.js runtime (Edge Runtime hat Probleme mit Supabase fetch)
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
     
     // 3. Insert in Supabase (waitlist_signups-Table)
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('waitlist_signups')
       .insert([
         {
