@@ -41,6 +41,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           business_type: validatedData.businessType,
           transactions_per_month: validatedData.transactionsPerMonth,
           referral_source: validatedData.referralSource,
+          loan_interest: validatedData.loanInterest ?? false,
         },
       ])
       .select()
@@ -66,6 +67,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         businessType: validatedData.businessType,
         transactionsPerMonth: validatedData.transactionsPerMonth,
         referralSource: validatedData.referralSource,
+        loanInterest: validatedData.loanInterest ?? false,
         createdAt: data?.created_at ?? new Date().toISOString(),
       });
     } catch (emailError) {

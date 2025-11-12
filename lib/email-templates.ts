@@ -10,6 +10,7 @@ export interface WaitlistEmailData {
   businessType?: string | null;
   transactionsPerMonth?: string | null;
   referralSource?: string | null;
+  loanInterest?: boolean | null;
   createdAt?: string | Date | null;
 }
 
@@ -35,6 +36,7 @@ export const adminNotificationTemplate = (data: WaitlistEmailData): string => {
   const phone = formatDisplayValue(data.phone, 'Not provided');
   const businessType = formatDisplayValue(data.businessType, 'Not specified');
   const referralSource = formatDisplayValue(data.referralSource, 'Direct');
+  const loanInterest = data.loanInterest ? 'Yes - follow up!' : 'No';
   const formattedTime = formatNairobiTime(data.createdAt);
 
   return `
@@ -45,6 +47,7 @@ export const adminNotificationTemplate = (data: WaitlistEmailData): string => {
           <p><strong>Phone:</strong> ${phone}</p>
           <p><strong>Business Type:</strong> ${businessType}</p>
           <p><strong>Referral Source:</strong> ${referralSource}</p>
+          <p><strong>Loan Partnerships Interest:</strong> ${loanInterest}</p>
           <p><strong>Time:</strong> ${formattedTime}</p>
         </div>
         <p style="color: #666; font-size: 14px;">

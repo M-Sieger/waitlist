@@ -32,6 +32,10 @@ const faqs = [
     answer: 'Our records format meets standard requirements for Banks, SACCOs, Chamas, WEF, and Women\'s Fund. Your organized M-Pesa statement works for ALL of them.',
   },
   {
+    question: 'Are you partnering with any SACCOs or lenders?',
+    answer: 'We are preparing pilots with Nairobi-based SACCOs (starting with Kimisitu SACCO) and community lenders. Once the first partnership is live, waitlist members get early invites and preferential onboarding.',
+  },
+  {
     question: 'What about my data privacy?',
     answer: 'Your financial data is encrypted and stored securely on Kenyan servers. We never share it with third parties.',
   },

@@ -13,7 +13,10 @@
 import { useState } from 'react';
 
 import { Loader2 } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import {
+  type SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 
 import {
   type WaitlistFormData,
@@ -33,11 +36,14 @@ export default function WaitlistForm() {
     formState: { errors },  // Validation-Errors
     reset,         // Form zurücksetzen nach Success
   } = useForm<WaitlistFormData>({
-    resolver: zodResolver(waitlistSchema),  // Zod-Schema für Validation
+  resolver: zodResolver<WaitlistFormData>(waitlistSchema),  // Zod-Schema für Validation
+    defaultValues: {
+      loanInterest: false,
+    },
   });
 
   // Submit-Handler: Sendet Form-Daten an API
-  const onSubmit = async (data: WaitlistFormData): Promise<void> => {
+  const onSubmit: SubmitHandler<WaitlistFormData> = async (data) => {
     setIsSubmitting(true);
     
     try {
@@ -60,7 +66,10 @@ export default function WaitlistForm() {
       // Track Event mit Plausible Analytics (wenn verfügbar)
       if (typeof window !== 'undefined' && (window as any).plausible) {
         (window as any).plausible('Waitlist Signup', {
-          props: { business_type: data.businessType },
+          props: {
+            business_type: data.businessType,
+            loan_interest: data.loanInterest ? 'yes' : 'no',
+          },
         });
       }
     } catch (error) {
@@ -179,6 +188,19 @@ export default function WaitlistForm() {
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
           placeholder="WhatsApp, Friend, etc."
         />
+      </div>
+
+      {/* Loan Interest Checkbox */}
+      <div className="flex items-start gap-3 rounded-lg border border-gray-300 p-4">
+        <input
+          id="loanInterest"
+          type="checkbox"
+          {...register('loanInterest')}
+          className="mt-1 h-5 w-5 text-primary focus:ring-primary"
+        />
+        <label htmlFor="loanInterest" className="text-sm text-text/80">
+          I want early access to loan partnerships (Banks, SACCOs, Chamas). Invite me to pilot programs and preferential lender onboarding.
+        </label>
       </div>
 
       {/* Submit Button */}

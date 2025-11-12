@@ -2,7 +2,7 @@
  * WARUM: Problem-Section – zeigt die 3 größten Pain-Points der Zielgruppe
  * WIE: Grid mit Icons (Lucide-React) + Headline + Description
  * WAS: Macht User klar: "Das sind MEINE Probleme" (Empathy)
- * 
+ *
  * BEISPIEL-USE:
  * import ProblemSection from '@/components/ProblemSection';
  * <ProblemSection /> // Rendert 3 Pain-Points
@@ -11,25 +11,25 @@
 import {
   CreditCard,
   FileText,
-  Lock,
+  Timer,
 } from 'lucide-react';
 
 // Array mit allen Problem-Karten (für .map() später)
 const problems = [
   {
-    icon: FileText,
-    title: 'Spending hours copying M-Pesa statements to Excel',
-    description: 'Every month, you manually type 200+ transactions. It\'s exhausting.',
-  },
-  {
-    icon: Lock,
-    title: 'Password-protected PDFs are a nightmare',
-    description: 'Safaricom locks your statement. You can\'t copy, can\'t search.',
-  },
-  {
     icon: CreditCard,
-    title: 'Banks & SACCOs reject you because your records aren\'t organized',
-    description: 'Whether it\'s a Business Loan, Personal Loan, or SACCO Loan – they all need proof of income. Your handwritten notes aren\'t enough.',
+    title: 'Loans get rejected because your records aren\'t organized',
+    description: 'Whether it\'s a Business Loan, Personal Loan, or SACCO Loan – they all need proof of income. Handwritten notes don\'t cut it.',
+  },
+  {
+    icon: FileText,
+    title: 'Every lender demands a clean statement they can trust',
+    description: 'Banks, SACCOs, Chamas, Women\'s Fund, WEF – all ask for organized M-Pesa statements showing steady income.',
+  },
+  {
+    icon: Timer,
+    title: 'Manual bookkeeping steals 20+ hours every month',
+    description: 'Copying 200+ M-Pesa transactions into Excel, fighting with PDF passwords, and reconciling totals is exhausting.',
   },
 ];
 

@@ -25,7 +25,9 @@ export default function Hero() {
           
           {/* Subheadline: Die Lösung in 1 Satz */}
           <p className="text-lg md:text-xl text-text/80 mb-8">
-            Get approved for loans faster. Works for Business, Personal, SACCO, and Chama loans.
+            Turn your Safaricom PDF into loan-ready statements in <strong className="text-primary">2 minutes</strong>.
+            <br />
+            Works for Business, Personal, SACCO, and Chama loans — get approved faster.
             <br />
             <span className="text-sm">🔒 Your data stays private</span>
           </p>

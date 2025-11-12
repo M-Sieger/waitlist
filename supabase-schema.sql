@@ -9,6 +9,7 @@ CREATE TABLE waitlist_signups (
   business_type VARCHAR(100) NOT NULL,
   transactions_per_month VARCHAR(20),
   referral_source VARCHAR(255),
+  loan_interest BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP DEFAULT NOW(),
   email_confirmed BOOLEAN DEFAULT FALSE,
   notes TEXT

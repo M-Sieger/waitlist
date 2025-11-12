@@ -15,6 +15,7 @@ export interface WaitlistFormData {
   businessType: string;
   transactionsPerMonth?: string;  // Optional
   referralSource?: string;        // Optional
+  loanInterest?: boolean;         // Optional Checkbox
 }
 
 // Supabase-Record (mit zusätzlichen Feldern nach Insert)

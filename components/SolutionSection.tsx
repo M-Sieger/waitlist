@@ -20,19 +20,19 @@ const steps = [
     icon: Upload,
     step: '1',
     title: 'Upload your Safaricom M-Pesa statement',
-    description: 'PDF, CSV, or Screenshot – we handle password-protected files.',
+    description: 'PDF, CSV, or even a screenshot – 60 seconds to get started, passwords handled automatically.',
   },
   {
     icon: Zap,
     step: '2',
-    title: 'We parse it automatically',
-    description: '2 minutes later, your data is organized and categorized.',
+    title: 'We auto-organize everything in under 2 minutes',
+    description: 'Income, expenses, cash flow, and trends categorized for you. No Excel, no manual editing.',
   },
   {
     icon: FileCheck,
     step: '3',
     title: 'Apply to ANY lender with confidence',
-    description: 'Works for Banks, SACCOs, Chamas, WEF, Women\'s Fund – any lender that needs proof of income.',
+    description: 'Download loan-ready reports or share directly with Banks, SACCOs, Chamas, WEF, Women\'s Fund – any lender that needs proof of income.',
   },
 ];
 

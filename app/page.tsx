@@ -10,7 +10,9 @@
 import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
+import PricingSection from '@/components/PricingSection';
 import ProblemSection from '@/components/ProblemSection';
+import SocialProofSection from '@/components/SocialProofSection';
 import SolutionSection from '@/components/SolutionSection';
 import WaitlistForm from '@/components/WaitlistForm';
 
@@ -20,6 +22,8 @@ export default function Home() {
       <Hero />
       <ProblemSection />
       <SolutionSection />
+  <SocialProofSection />
+  <PricingSection />
       
       {/* Waitlist-Form-Section */}
       <section id="waitlist" className="py-16 md:py-24 bg-white">
