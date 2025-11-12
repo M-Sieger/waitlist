@@ -1,8 +1,45 @@
 # 🎓 Learnings aus dem Build-Prozess (M-Recon Waitlist)
 
-**Datum:** November 7-9, 2025  
+**Datum:** November 7-12, 2025  
 **Projekt:** M-Recon Waitlist Site (Phase 0 – Product Validation)  
 **Entwickler:** Mo (mit GitHub Copilot)
+
+---
+
+## 📊 NEUE FEATURES (12.11.2025)
+
+### ✅ Validation Survey Page (`/validation-survey`)
+
+**WARUM gebaut:**
+- Grace's 10 SME Interviews quantitativ skalieren
+- Product-Market Fit testen (16 Fragen)
+- Willingness-to-Pay validieren (KES 500/mo)
+- SACCO membership segmentieren (für Partnership-Strategie)
+
+**WAS es macht:**
+- Multi-step form (16 questions, 7 sections)
+- Conditional logic (Section headers change)
+- KES 150 payment incentive (M-Pesa)
+- Supabase integration (`validation_survey_responses` table)
+- Mobile-optimized UX (progress bar, large touch targets)
+
+**KEY QUESTIONS:**
+1. Business Type (Duka, Mama Mboga, Salon, etc.)
+2. SACCO member? (Segmentation für GTM-STRATEGY.md)
+3. Loan rejection reason? (Validates "insufficient records" pain)
+4. Time spent organizing M-Pesa data? (Quantifies pain)
+5. WTP: KES 500/mo? (Pricing validation)
+
+**Files Created:**
+- `/app/validation-survey/page.tsx` (React form, 16 questions)
+- `/app/api/validation-survey/route.ts` (Supabase insert)
+- `/supabase-survey-schema.sql` (Database schema)
+
+**Next Steps:**
+- Deploy to Vercel (`/validation-survey` live)
+- Share link mit Grace (WhatsApp groups)
+- Manual M-Pesa payments (KES 150 per response)
+- Analyze results (Excel export from Supabase)
 
 ---
 

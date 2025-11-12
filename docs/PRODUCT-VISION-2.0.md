@@ -93,11 +93,15 @@ Priority 1: SACCO Partnerships (PRIMARY) 🔥
   - Messaging: "Reduce loan rejections by 25%"
   - Expected adoption: 50% (5,000 users per SACCO)
   
-Priority 2: Consumer Waitlist (VALIDATION)
-  - Direct signup validation
-  - WTP testing (KES 499/mo)
-  - Grace interviews (10 SMEs)
-  - Target: 30+ signups Week 1
+Priority 2: Consumer Waitlist + Validation Survey (VALIDATION)
+  - Direct signup validation (m-recon.com)
+  - Validation Survey (m-recon.com/validation-survey):
+      → 16-question PMF survey
+      → KES 150 payment incentive per response
+      → Target: 50+ responses in Week 1
+      → Key metrics: WTP (KES 500/mo), SACCO membership %, loan rejection reasons
+  - Grace interviews (10 SMEs - qualitative)
+  - Target: 30+ waitlist signups + 50+ survey responses Week 1
   
 Priority 3: WEF Outreach (LONG-TERM) ⚠️
   - Bank account requirement = barrier
@@ -105,6 +109,34 @@ Priority 3: WEF Outreach (LONG-TERM) ⚠️
   - Manual process rejects M-Pesa statements
   - Strategy: Position as bank account workaround tool
   - Timeline: Q2 2026 (after SACCO traction)
+```
+
+**NEW: Validation Survey Strategy (12.11.2025):**
+```yaml
+Purpose:
+  - Quantify pain points (time spent on M-Pesa bookkeeping)
+  - Validate loan rejection = #1 problem
+  - Test WTP: KES 500/mo pricing
+  - Segment by SACCO membership (for Partnership GTM)
+  
+Distribution:
+  - Grace's WhatsApp groups (10 SME contacts)
+  - Waitlist page CTA: "Earn KES 150 - Take survey"
+  - Facebook ads (if needed): "Get paid KES 150 for 8-min survey"
+  
+Key Questions:
+  Q6: "If REJECTED: What reason were you given?"
+    → Hypothesis: 60%+ say "Insufficient financial records"
+  Q15: "After free trial, if M-Recon costs KES 500/month, would you continue?"
+    → Target: 40%+ say "Yes, definitely" or "Yes, if it helps me get a loan"
+  Q2: "Are you a member of a SACCO or Chama?"
+    → Segmentation for SACCO partnership outreach
+    
+Success Criteria (Week 1):
+  ✅ 50+ survey responses
+  ✅ 40%+ WTP for KES 500/mo
+  ✅ 30%+ are SACCO members (validates GTM-STRATEGY.md)
+  ✅ 60%+ mention "insufficient records" as loan rejection reason
 ```
 
 ---
