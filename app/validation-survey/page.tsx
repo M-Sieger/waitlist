@@ -382,7 +382,7 @@ export default function ValidationSurveyPage() {
           </h2>
 
           <div className="space-y-3">
-            {currentQuestion.type === 'radio' && currentQuestion.options.map((option, idx) => (
+            {currentQuestion.type === 'radio' && Array.isArray(currentQuestion.options) && currentQuestion.options.map((option, idx) => (
               <label 
                 key={idx}
                 className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all ${
@@ -403,7 +403,7 @@ export default function ValidationSurveyPage() {
               </label>
             ))}
 
-            {currentQuestion.type === 'checkbox' && currentQuestion.options.map((option, idx) => (
+            {currentQuestion.type === 'checkbox' && Array.isArray(currentQuestion.options) && currentQuestion.options.map((option, idx) => (
               <label 
                 key={idx}
                 className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all ${
