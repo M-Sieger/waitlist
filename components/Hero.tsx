@@ -25,9 +25,9 @@ export default function Hero() {
           
           {/* Subheadline: Die Lösung in 1 Satz */}
           <p className="text-lg md:text-xl text-text/80 mb-8">
-            Turn your Safaricom PDF into organized financial records in 2 minutes.
+            Get approved for loans faster. Works for Business, Personal, SACCO, and Chama loans.
             <br />
-            Built for small Kenyan businesses.
+            <span className="text-sm">🔒 Your data stays private</span>
           </p>
           
           {/* CTA-Button: Scrollt zu Waitlist-Form (Anchor-Link #waitlist) */}
@@ -35,13 +35,13 @@ export default function Hero() {
             href="#waitlist"
             className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors"
           >
-            Join Waitlist – First 100 Get Lifetime Free
+            Get Early Access – Free Forever
             <ArrowRight className="w-5 h-5" />
           </Link>
           
           {/* Social-Proof: Wie viele haben schon gesigned-up? */}
           <p className="mt-6 text-sm text-text/60">
-            🎉 <strong>127 small businesses</strong> already joined
+            🎉 Join <strong>127+ Mama Mbogas, Boda Bodas & Jua Kalis</strong>
           </p>
         </div>
       </div>

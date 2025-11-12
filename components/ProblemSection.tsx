@@ -28,8 +28,8 @@ const problems = [
   },
   {
     icon: CreditCard,
-    title: 'Loan applications rejected due to "insufficient records"',
-    description: 'Banks and WEF need clean records. Your Excel sheets aren\'t enough.',
+    title: 'Banks & SACCOs reject you because your records aren\'t organized',
+    description: 'Whether it\'s a Business Loan, Personal Loan, or SACCO Loan – they all need proof of income. Your handwritten notes aren\'t enough.',
   },
 ];
 
@@ -39,9 +39,12 @@ export default function ProblemSection() {
       <div className="container mx-auto px-4">
         
         {/* Section-Headline */}
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-text mb-12">
-          The Problem Every Small Business Faces
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-text mb-4">
+          The Problem Every Informal Income Earner Faces
         </h2>
+        <p className="text-center text-text/60 mb-12">
+          💔 <strong>3.2M Kenyans</strong> get rejected for loans every year
+        </p>
         
         {/* Problem-Grid: 3 Spalten auf Desktop, 1 Spalte auf Mobile */}
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">

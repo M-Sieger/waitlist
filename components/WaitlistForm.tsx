@@ -127,19 +127,22 @@ export default function WaitlistForm() {
       {/* Business Type Dropdown */}
       <div>
         <label htmlFor="businessType" className="block text-sm font-medium text-text mb-2">
-          Business Type *
+          What do you do? *
         </label>
         <select
           id="businessType"
           {...register('businessType')}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
         >
-          <option value="">Select business type...</option>
-          <option value="duka">Duka/Shop</option>
-          <option value="salon">Salon/Barbershop</option>
-          <option value="restaurant">Restaurant/Cafe</option>
-          <option value="transport">Transport/Boda</option>
-          <option value="tailoring">Tailoring/Textiles</option>
+          <option value="">Select your work...</option>
+          <option value="duka">Duka/Shop Owner</option>
+          <option value="mama-mboga">Mama Mboga</option>
+          <option value="salon">Salon/Barber</option>
+          <option value="restaurant">Restaurant/Food Kiosk</option>
+          <option value="boda-boda">Boda Boda Rider</option>
+          <option value="jua-kali">Jua Kali (Mechanic/Welder/Carpenter)</option>
+          <option value="mitumba">Mitumba Seller</option>
+          <option value="freelancer">Freelancer/Consultant</option>
           <option value="other">Other</option>
         </select>
         {errors.businessType && (

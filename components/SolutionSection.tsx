@@ -31,8 +31,8 @@ const steps = [
   {
     icon: FileCheck,
     step: '3',
-    title: 'Get organized records ready for loan applications',
-    description: 'Export to Excel, PDF, or share directly with banks/WEF.',
+    title: 'Apply to ANY lender with confidence',
+    description: 'Works for Banks, SACCOs, Chamas, WEF, Women\'s Fund – any lender that needs proof of income.',
   },
 ];
 

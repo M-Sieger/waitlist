@@ -20,12 +20,16 @@ import {
 // Array mit allen FAQ-Items
 const faqs = [
   {
+    question: 'Does this work for Personal Loans too? Or just Business Loans?',
+    answer: 'YES! M-Recon works for ANY loan type: Business Loans, Personal Loans, SACCO Loans, Chama Loans, Women\'s Fund, WEF. We organize your M-Pesa income – lenders don\'t care what you call it.',
+  },
+  {
     question: 'How much will M-Recon cost?',
     answer: 'KES 500/month. First 100 waitlist members get lifetime free access for up to 30 transactions/month.',
   },
   {
-    question: 'Do I need internet all the time?',
-    answer: 'No. Upload your PDF with internet, then access your records offline anytime.',
+    question: 'Which banks/institutions accept M-Recon records?',
+    answer: 'Our records format meets standard requirements for Banks, SACCOs, Chamas, WEF, and Women\'s Fund. Your organized M-Pesa statement works for ALL of them.',
   },
   {
     question: 'What about my data privacy?',
@@ -36,8 +40,8 @@ const faqs = [
     answer: 'We are targeting Q1 2026. Join the waitlist to be the first to know and test the beta!',
   },
   {
-    question: 'Which banks/institutions accept M-Recon records?',
-    answer: 'We are working with WEF and several Kenyan banks. Our records format meets standard loan application requirements.',
+    question: 'Do I need internet all the time?',
+    answer: 'No. Upload your PDF with internet, then access your records offline anytime.',
   },
 ];
 
