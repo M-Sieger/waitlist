@@ -1,7 +1,9 @@
 /**
  * WARUM: Survey responses in Supabase speichern für Analyse (WTP, SACCO membership, loan rejection reasons)
  * WIE: POST /api/validation-survey → Insert in validation_survey_responses table
- * WAS: API Route für Validation Survey Submissions (16 Fragen → Supabase)
+ * WAS: API Route für Validation Survey Submissions (13 Fragen max, conditional Q5/Q6 → Supabase)
+ * 
+ * OPTION C: loan_outcome + rejection_reason sind OPTIONAL (nur wenn Q4="Yes" bzw Q5="Rejected")
  */
 
 import {
