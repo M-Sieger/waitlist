@@ -64,7 +64,7 @@ export default function ValidationSurveyPage() {
       {
         id: 'mpesa_usage',
         section: 'M-Pesa Usage',
-        question: '3. How do you use M-Pesa for your business? (Select all that apply)',
+        question: '3. How do you use M-Pesa? (Select all that apply)',
         type: 'checkbox',
         options: [
           'Receive customer payments',
@@ -113,7 +113,7 @@ export default function ValidationSurveyPage() {
       {
         id: 'record_keeping',
         section: 'Current Record Keeping',
-        question: '7. How do you currently track your business income and expenses?',
+        question: '7. How do you currently track your income and expenses?',
         type: 'radio',
         options: [
           'Handwritten notebook',
@@ -141,7 +141,7 @@ export default function ValidationSurveyPage() {
       {
         id: 'time_savings',
         section: 'Time & Cost',
-        question: '9. If loan approval took 5 minutes instead of days/weeks, how much would that help your business?',
+        question: '9. If loan approval took 5 minutes instead of days/weeks, how much would that help you?',
         type: 'radio',
         options: [
           'Not helpful',
