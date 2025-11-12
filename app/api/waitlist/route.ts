@@ -13,7 +13,7 @@ import {
   NextResponse,
 } from 'next/server';
 
-import { sendConfirmationEmail } from '@/lib/email';
+import { sendWaitlistEmails } from '@/lib/email';
 import { supabaseAdmin } from '@/lib/supabase-admin';
 import { waitlistSchema } from '@/lib/validations';
 
@@ -60,7 +60,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     // 4. Send Confirmation-Email (Resend)
     try {
-      await sendConfirmationEmail(validatedData.email);
+      await sendWaitlistEmails({
+        email: validatedData.email,
+        phone: validatedData.phone,
+        businessType: validatedData.businessType,
+        transactionsPerMonth: validatedData.transactionsPerMonth,
+        referralSource: validatedData.referralSource,
+        createdAt: data?.created_at ?? new Date().toISOString(),
+      });
     } catch (emailError) {
       console.error('Email send failed:', emailError);
       // Don't fail the request if email fails (DB-Insert war erfolgreich)
