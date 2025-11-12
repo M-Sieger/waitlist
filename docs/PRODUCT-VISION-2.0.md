@@ -13,10 +13,12 @@
 ---
 
 ## **NEUE VISION (ab 12.11.2025):**
-> "M-Recon enables Kenyan SMEs to access business loans through clean financial records"
+> "M-Recon enables informal income earners in Kenya to access loans through clean financial records"
 - **Primary Value Prop:** Loan Access (60% rejections wegen fehlender Records)
-- **Target Pain:** "Banks lehnen mich ab, weil ich keine proper Records habe"
+- **Target Pain:** "Banks/SACCOs lehnen mich ab, weil ich keine proper Records habe"
 - **Positioning:** **Financial Inclusion Platform**
+- **Target:** Self-employed, Freelancers, Micro-entrepreneurs (M-Pesa for income)
+- **Loan Types:** Business Loans, Personal Loans, SACCO Loans, Chama Loans (SAME solution!)
 
 ---
 
@@ -50,11 +52,16 @@
 
 ### **Primary (80% of Marketing):**
 ```yaml
-Profile: Credit-Access Motivated SME Owner
-Pain: "I've been rejected for loans 2-3 times because I have no proper records"
+Profile: Loan-Access Motivated (Informal Income Earners)
+Pain: "I've been rejected for loans because I have no proper records"
 Emotion: Frustration → Hope
-Trigger: "Get your first business loan"
-Example: Mama Mboga who needs working capital to expand inventory
+Trigger: "Get approved for loans faster"
+Loan Types: Business, Personal, SACCO, Chama (ALL use same M-Recon output!)
+Example: 
+  - Mama Mboga who needs "Personal Loan" for stock (= business use)
+  - Jua Kali who needs "Business Loan" for tools
+  - Freelancer who needs "Personal Loan" for equipment
+Note: In Kenya, "Personal" vs "Business" loan = naming only, SAME user base!
 ```
 
 ### **Secondary (20% of Marketing):**
@@ -79,7 +86,8 @@ Example: Duka owner tired of Excel reconciliation
 - Conversion rate >5% (mobile)
 
 **Key Changes:**
-- Hero: "Get Your First Business Loan" (not "Save Time")
+- Hero: "Get Approved for Loans Faster" (not "Get Your First Business Loan")
+- Inclusive: "Any loan type: Business, Personal, SACCO, Chama"
 - Social Proof: SACCO partnership mentions (Kwara precedent: doubled memberships)
 - Pricing: Show cost (KES 499/mo) for transparency
 - FAQ: Address loan-help objections first

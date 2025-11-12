@@ -41,20 +41,23 @@ Owner: Mo (sketch) → Designer (polish)
 ```yaml
 New Copy Needed:
   ☐ Hero headline (5 variations for A/B test)
-      → Focus: Loan-access (NOT time-saving)
-      → Example: "Get Your First Business Loan With Clean M-Pesa Records"
+      → Focus: Loan-access (NOT business-specific, NOT time-saving)
+      → Example: "Get Approved for Loans Faster"
+      → Clarify: "Any loan type: Business, Personal, SACCO, Chama"
+      → Kenya Reality: Personal Loans often used for business (informal sector)
   ☐ Hero subheadline
       → Emphasize: 2-minute transformation, no Excel
   ☐ Problem section (3 pain points)
-      → #1: Banks reject you (no proper records)
-      → #2: SACCOs need 6 months statements (M-Pesa is messy)
+      → #1: Banks/SACCOs reject you (no proper records)
+      → #2: Need financial statements for ANY loan (Business, Personal, SACCO)
       → #3: Manual bookkeeping wastes time
   ☐ Solution steps (3)
       → Upload PDF → Auto-organize → Download loan-ready reports
   ☐ FAQ (7 questions - loan-focus first)
       → Q1: "Will this help me get a loan?" (MUST be first!)
-      → Q2: "Do SACCOs accept M-Recon reports?"
-      → Q3-7: Technical/pricing questions
+      → Q2: "Works for Business AND Personal loans?" (Clarify Kenya reality)
+      → Q3: "Do SACCOs/Banks accept M-Recon reports?"
+      → Q4-7: Technical/pricing questions
   ☐ CTA button copy (3 variations)
       → "Join 500+ SMEs Getting Loans"
       → "Get Loan-Ready in 2 Minutes"

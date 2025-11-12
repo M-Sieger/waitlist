@@ -319,24 +319,43 @@ Mo
 ### **Hero Section:**
 
 ```yaml
-Headline: "Get Your First Business Loan With Clean M-Pesa Records"
-Subheadline: "Turn your M-Pesa statements into loan-ready financial reports 
-              in 2 minutes. No Excel, no stress."
-CTA: "Join 500+ Kenyan SMEs → Get Early Access"
+Headline: "Get Approved for Loans Faster"
+  (NOT "Business Loan" - too narrow! Personal Loans = same users in Kenya)
+  
+Subheadline: "M-Recon turns your M-Pesa statements into 
+              professional financial reports that SACCOs, 
+              Banks, and MFIs accept for ANY loan application."
+              
+Clarification: "Works for Business Loans, Personal Loans, SACCO Loans, Chama Loans"
+  
+CTA: "Join 500+ Kenyans → Get Early Access"
+
 Social Proof: "Trusted by [SACCO Name] members" (once pilot live)
+
+Kenya Reality Note:
+  → In informal sector: "Personal Loan" often = business financing
+  → M-Pesa wallet = mixed (business + personal transactions)
+  → M-Recon works for BOTH (same solution!)
 ```
 
 ### **Problem Section (Loan-Focused):**
 
 ```yaml
-Pain 1: "Banks reject you because you have no 'proper' records"
-  → Even though your M-Pesa shows KES 200k/month revenue
+Pain 1: "Banks/SACCOs reject you because you have no 'proper' records"
+  → Even though your M-Pesa shows KES 200k/month income
+  → Applies to: Business Loans, Personal Loans, SACCO Loans
   
-Pain 2: "SACCOs ask for 6 months of financial statements"
+Pain 2: "You need 6 months of financial statements for any loan"
   → You have M-Pesa PDFs but they're 50+ pages long
+  → Lenders want: Organized reports, not raw statements
   
 Pain 3: "Manual Excel bookkeeping takes 20+ hours/month"
-  → Time you could spend growing your business
+  → Time you could spend growing your income
+  
+Kenya Reality:
+  → "Personal Loan" vs "Business Loan" = naming only
+  → Self-employed people take "Personal Loans" for business use
+  → M-Recon solves BOTH with same output!
 ```
 
 ### **Solution Section (Loan-Access):**
