@@ -1,6 +1,7 @@
 # 🤖 Copilot-Arbeitsanweisungen – M-Recon Waitlist Site
 
 **Erstellt:** 2025-11-04  
+**EMERGENCY UPDATE:** 2025-11-13 - Copy Guidelines (Loan-Focused, Outcome-Based)  
 **Purpose:** Definiert, wie GitHub Copilot sich bei diesem Projekt verhalten soll  
 **Zielgruppe:** GitHub Copilot + Developer (Mo)
 
@@ -12,6 +13,12 @@
 
 Jede Datei, jede Funktion muss für einen **Non-Expert-Developer** verständlich sein.  
 Mo lernt dabei – also Code soll **selbsterklärend UND dokumentiert** sein.
+
+**NEUE PRIORITÄT (13.11.2025):**  
+**"Copy muss LOAN-ACCESS fokussiert sein, nicht Time-Saving"**  
+→ Fokus auf painkiller (loan rejection), nicht vitamin (efficiency)  
+→ Outcome-focused (approved loan), nicht process-focused (organized records)  
+→ Siehe: `/docs/EMERGENCY-CHANGES.md` für Kontext
 
 ---
 
@@ -132,6 +139,135 @@ export default function WaitlistForm() {
 <button className="px-8 py-4 md:px-4 md:py-3">
   Join Waitlist
 </button>
+```
+
+---
+
+## ✍️ COPY-GUIDELINES (EMERGENCY UPDATE 13.11.2025)
+
+**Context:** Waitlist page reality check → Language zu technical, wrong value prop  
+**See:** `/docs/EMERGENCY-CHANGES.md` für full context
+
+### **❌ AVOID (Technical Jargon):**
+```yaml
+Bad Words:
+  - "Parse" → use "turn into"
+  - "Process" → use "transform"
+  - "Extract" → use "read"
+  - "Automatically" → use specific action
+  - "Seamlessly" → use specific benefit
+  - "Organized & categorized" → use specific outcome
+
+Bad Phrases:
+  - "Apply with confidence" → vague, what does this mean?
+  - "Get your records in order" → process-focused, not outcome
+  - "M-Pesa bookkeeping made easy" → wrong positioning (Mint competitor)
+```
+
+### **✅ USE INSTEAD (Outcome-Focused):**
+```yaml
+Good Patterns:
+  - "Turn [X] into [Y]" (clear transformation)
+  - "Ready to submit to [specific lender]" (concrete outcome)
+  - "[Number] minutes/hours" (measurable benefit)
+  - "Increase approval chances" (emotional, specific)
+  - "Stop getting rejected" (pain point → solution)
+
+Good Examples:
+  - "Turn M-Pesa statements into professional loan reports"
+  - "Ready to submit to your SACCO, Bank, or Chama"
+  - "Get approved 3x faster"
+  - "2 minutes from PDF to loan-ready report"
+  - "Banks and SACCOs accept M-Recon reports"
+```
+
+### **BEFORE/AFTER Examples:**
+
+**Example 1 (Solution Step 2):**
+```yaml
+❌ BEFORE (Technical):
+  "We parse it automatically in 2 minutes. 
+   Your data is organized & categorized."
+
+✅ AFTER (Outcome-Focused):
+  "We turn it into a professional loan report in 2 minutes.
+   Ready to submit to your SACCO, Bank, or Chama."
+
+Why better:
+  - "Turn into" > "parse" (user understands)
+  - "Professional loan report" > "organized data" (specific outcome)
+  - "Ready to submit" > "organized" (shows next action)
+  - Names specific lenders (SACCO, Bank, Chama)
+```
+
+**Example 2 (Solution Step 3):**
+```yaml
+❌ BEFORE (Vague):
+  "Apply to ANY lender with confidence"
+
+✅ AFTER (Specific):
+  "Submit to SACCOs, Banks, WEF, or Chamas.
+   Increase approval chances by showing organized records 
+   that lenders trust."
+
+Why better:
+  - Names specific lender types (credibility)
+  - "Increase approval chances" > "with confidence" (measurable)
+  - "Lenders trust" (third-party validation)
+```
+
+**Example 3 (Headline):**
+```yaml
+❌ BEFORE (Vitamin - Time-Saving):
+  "Stop Wasting 20 Hours Every Month on M-Pesa Bookkeeping"
+
+✅ AFTER (Painkiller - Loan Access):
+  "Get Approved for Your Next Loan 3x Faster"
+
+Why better:
+  - Fokus on painkiller (loan rejection) not vitamin (time-saving)
+  - Outcome-focused (approval) not process (bookkeeping)
+  - Emotional (rejection = real pain)
+  - Works for Business, Personal, SACCO, Chama loans
+```
+
+### **LOAN-ACCESS > TIME-SAVING:**
+```yaml
+Priority Hierarchy (ALWAYS in this order):
+  1. 🔥 Loan Access (painkiller - validated pain!)
+     → "Get approved faster"
+     → "Stop getting rejected"
+     → "Accepted by SACCOs/Banks"
+  
+  2. ⏰ Time-Saving (vitamin - nice-to-have)
+     → "2 minutes instead of 20 hours"
+     → "No more Excel work"
+     → Use only as SECONDARY benefit
+
+Why:
+  - 60% loan rejections = validated pain (painkiller)
+  - Time-saving = efficiency (vitamin, not urgent)
+  - Users pay for OUTCOMES (loan), not PROCESS (time saved)
+```
+
+### **WHEN WRITING COPY:**
+```yaml
+Ask yourself:
+  1. ❓ Does this focus on LOAN ACCESS (painkiller)?
+     → If no, rewrite to focus on loan approval
+  
+  2. ❓ Does this show a SPECIFIC OUTCOME?
+     → "Approved for loan" not "organized records"
+  
+  3. ❓ Would a non-technical user understand this?
+     → No "parse", "extract", "process"
+  
+  4. ❓ Does this name SPECIFIC LENDERS?
+     → "SACCO, Bank, Chama" not "any lender"
+  
+  5. ❓ Is this MEASURABLE or EMOTIONAL?
+     → "3x faster" or "stop getting rejected"
+     → Not "with confidence" or "seamlessly"
 ```
 
 ---

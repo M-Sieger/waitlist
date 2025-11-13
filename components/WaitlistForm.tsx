@@ -24,6 +24,22 @@ import {
 } from '@/lib/validations';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+type PlausibleClient = Window & {
+  plausible?: (event: string, options?: { props?: Record<string, string> }) => void;
+};
+
+const trackPlausibleEvent = (event: string, props?: Record<string, string>) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  const plausible = (window as PlausibleClient).plausible;
+
+  if (typeof plausible === 'function') {
+    plausible(event, props ? { props } : undefined);
+  }
+};
+
 export default function WaitlistForm() {
   // State für Loading-Indicator und Success-Message
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,9 +52,18 @@ export default function WaitlistForm() {
     formState: { errors },  // Validation-Errors
     reset,         // Form zurücksetzen nach Success
   } = useForm<WaitlistFormData>({
-  resolver: zodResolver<WaitlistFormData>(waitlistSchema),  // Zod-Schema für Validation
+    resolver: zodResolver(waitlistSchema),  // Zod-Schema für Validation
     defaultValues: {
       loanInterest: false,
+    },
+  });
+
+  const loanInterestRegister = register('loanInterest', {
+    onChange: (event) => {
+      const target = event.target as HTMLInputElement;
+      if (target.checked) {
+        trackPlausibleEvent('Loan Interest Checked');
+      }
     },
   });
 
@@ -64,14 +89,10 @@ export default function WaitlistForm() {
       reset();
       
       // Track Event mit Plausible Analytics (wenn verfügbar)
-      if (typeof window !== 'undefined' && (window as any).plausible) {
-        (window as any).plausible('Waitlist Signup', {
-          props: {
-            business_type: data.businessType,
-            loan_interest: data.loanInterest ? 'yes' : 'no',
-          },
-        });
-      }
+      trackPlausibleEvent('Waitlist Signup', {
+        business_type: data.businessType,
+        loan_interest: data.loanInterest ? 'yes' : 'no',
+      });
     } catch (error) {
       console.error('Form submission error:', error);
       alert(error instanceof Error ? error.message : 'Failed to submit form');
@@ -195,7 +216,7 @@ export default function WaitlistForm() {
         <input
           id="loanInterest"
           type="checkbox"
-          {...register('loanInterest')}
+          {...loanInterestRegister}
           className="mt-1 h-5 w-5 text-primary focus:ring-primary"
         />
         <label htmlFor="loanInterest" className="text-sm text-text/80">

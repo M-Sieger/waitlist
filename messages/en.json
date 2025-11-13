@@ -1,0 +1,145 @@
+{
+  "hero": {
+    "headline": "Stop Wasting 20 Hours Every Month on M-Pesa Bookkeeping",
+    "subheadline": "Turn your Safaricom PDF into loan-ready statements in 2 minutes.",
+    "subheadlineExtended": "Works for Business, Personal, SACCO, and Chama loans — get approved faster.",
+    "privacy": "Your data stays private",
+    "cta": "Get Early Access – Free Forever",
+    "socialProof": "Join {count}+ Mama Mbogas, Boda Bodas & Jua Kalis"
+  },
+  "problem": {
+    "headline": "The Problem Every Informal Income Earner Faces",
+    "stat": "{count}M Kenyans get rejected for loans every year",
+    "card1": {
+      "title": "Loans get rejected because your records aren't organized",
+      "description": "Whether it's a Business Loan, Personal Loan, or SACCO Loan – they all need proof of income. Handwritten notes don't cut it."
+    },
+    "card2": {
+      "title": "Every lender demands a clean statement they can trust",
+      "description": "Banks, SACCOs, Chamas, Women's Fund, WEF – all ask for organized M-Pesa statements showing steady income."
+    },
+    "card3": {
+      "title": "Manual bookkeeping steals 20+ hours every month",
+      "description": "Copying 200+ M-Pesa transactions into Excel, fighting with PDF passwords, and reconciling totals is exhausting."
+    }
+  },
+  "solution": {
+    "headline": "How M-Recon Works",
+    "step1": {
+      "title": "Upload your Safaricom M-Pesa statement",
+      "description": "PDF, CSV, or even a screenshot – 60 seconds to get started, passwords handled automatically."
+    },
+    "step2": {
+      "title": "We auto-organize everything in under 2 minutes",
+      "description": "Income, expenses, cash flow, and trends categorized for you. No Excel, no manual editing."
+    },
+    "step3": {
+      "title": "Apply to ANY lender with confidence",
+      "description": "Download loan-ready reports or share directly with Banks, SACCOs, Chamas, WEF, Women's Fund – any lender that needs proof of income."
+    }
+  },
+  "socialProof": {
+    "headline": "Trusted by the People Who Need Loans the Most",
+    "card1": {
+      "title": "SACCO pilots kicking off",
+      "description": "Pilot discussions underway with Kimisitu SACCO and Nairobi community lenders. Waitlist members get first invites."
+    },
+    "card2": {
+      "title": "{count}+ informal earners onboard",
+      "description": "Mama Mbogas, Boda Bodas, Jua Kalis, and freelancers already joined to secure faster access to loans."
+    },
+    "card3": {
+      "title": "Interviewed with real customers",
+      "description": "20+ deep interviews with Kenyan SMEs & hustlers shaped the product — we build exactly what lenders request."
+    }
+  },
+  "pricing": {
+    "headline": "Pricing that Grows with Your Loan Needs",
+    "subheadline": "Start free while we launch. Upgrade when you need unlimited transactions and direct lender referrals.",
+    "free": {
+      "name": "Free Tier",
+      "price": "KES 0",
+  "highlight": "Free for the first 100 loan-seekers",
+  "badge": "Waitlist Beta",
+      "features": [
+        "50 transactions/month included",
+        "Loan-ready PDF + Excel exports",
+        "Manual lender sharing",
+        "Community WhatsApp support"
+      ]
+    },
+    "growth": {
+      "name": "Growth Tier",
+      "price": "KES 499/mo",
+  "highlight": "Coming after pilot – unlimited usage",
+      "badge": "Launch Offer",
+      "features": [
+        "Unlimited transactions",
+        "Automated lender sharing (Banks, SACCOs, Chamas)",
+        "Loan referral introductions",
+        "Priority support + onboarding call"
+      ]
+    }
+  },
+  "waitlist": {
+    "headline": "Join the Waitlist",
+  "subheadline": "Be among the first 100 to use the beta free of charge (up to 30 transactions/month) until public pricing rolls out. We will notify you when M-Recon launches.",
+    "form": {
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "businessType": "What do you do?",
+      "businessTypePlaceholder": "Select your work...",
+      "transactionsPerMonth": "Transactions Per Month (optional)",
+      "transactionsPlaceholder": "Select range...",
+      "referralSource": "How did you hear about us? (optional)",
+      "referralPlaceholder": "WhatsApp, Friend, etc.",
+      "loanInterest": "I want early access to loan partnerships (Banks, SACCOs, Chamas). Invite me to pilot programs and preferential lender onboarding.",
+      "submit": "Join Waitlist",
+      "submitting": "Joining...",
+      "disclaimer": "By joining, you agree to receive launch updates via email."
+    },
+    "success": {
+      "headline": "You are on the list!",
+      "message": "We will notify you when M-Recon launches. Check your email for confirmation."
+    }
+  },
+  "faq": {
+    "headline": "Frequently Asked Questions",
+    "questions": {
+      "q1": {
+        "question": "Does this work for Personal Loans too? Or just Business Loans?",
+        "answer": "YES! M-Recon works for ANY loan type: Business Loans, Personal Loans, SACCO Loans, Chama Loans, Women's Fund, WEF. We organize your M-Pesa income – lenders don't care what you call it."
+      },
+      "q2": {
+        "question": "How much will M-Recon cost?",
+  "answer": "KES 500/month. First 100 waitlist members stay on the beta plan (KES 0) for up to 30 transactions/month until we launch publicly."
+      },
+      "q3": {
+        "question": "Which banks/institutions accept M-Recon records?",
+        "answer": "Our records format meets standard requirements for Banks, SACCOs, Chamas, WEF, and Women's Fund. Your organized M-Pesa statement works for ALL of them."
+      },
+      "q4": {
+        "question": "Are you partnering with any SACCOs or lenders?",
+        "answer": "We are preparing pilots with Nairobi-based SACCOs (starting with Kimisitu SACCO) and community lenders. Once the first partnership is live, waitlist members get early invites and preferential onboarding."
+      },
+      "q5": {
+        "question": "What about my data privacy?",
+        "answer": "Your financial data is encrypted and stored securely on Kenyan servers. We never share it with third parties."
+      },
+      "q6": {
+        "question": "When will M-Recon launch?",
+        "answer": "We are targeting Q1 2026. Join the waitlist to be the first to know and test the beta!"
+      },
+      "q7": {
+        "question": "Do I need internet all the time?",
+        "answer": "No. Upload your PDF with internet, then access your records offline anytime."
+      }
+    }
+  },
+  "footer": {
+    "about": "About",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "tagline": "Turning your M-Pesa data into loan opportunities"
+  }
+}

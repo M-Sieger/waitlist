@@ -17,17 +17,15 @@ export default function Hero() {
       <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="max-w-3xl mx-auto text-center">
           
-          {/* Headline: Das größte Problem benennen (Pain-Point) */}
+          {/* Headline: LOAN-ACCESS VALUE PROP (nicht time-saving!) */}
           <h1 className="text-4xl md:text-6xl font-bold text-text mb-6 leading-tight">
-            Stop Wasting 20 Hours Every Month on{' '}
-            <span className="text-primary">M-Pesa Bookkeeping</span>
+            Get Approved for Your Next Loan{' '}
+            <span className="text-primary">3x Faster</span>
           </h1>
-          
-          {/* Subheadline: Die Lösung in 1 Satz */}
+
+          {/* Subheadline: Outcome-focused (was bekommt der User?) */}
           <p className="text-lg md:text-xl text-text/80 mb-8">
-            Turn your Safaricom PDF into loan-ready statements in <strong className="text-primary">2 minutes</strong>.
-            <br />
-            Works for Business, Personal, SACCO, and Chama loans — get approved faster.
+            Turn your M-Pesa statements into professional loan reports accepted by Banks, SACCOs, and Chamas – in <strong className="text-primary">2 minutes</strong>.
             <br />
             <span className="text-sm">🔒 Your data stays private</span>
           </p>
@@ -37,13 +35,13 @@ export default function Hero() {
             href="#waitlist"
             className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors"
           >
-            Get Early Access – Free Forever
+            Get Early Access – Free for First 100
             <ArrowRight className="w-5 h-5" />
           </Link>
           
-          {/* Social-Proof: Wie viele haben schon gesigned-up? */}
+          {/* Social-Proof: Ehrliche Zahlen (keine Fake-Numbers!) */}
           <p className="mt-6 text-sm text-text/60">
-            🎉 Join <strong>127+ Mama Mbogas, Boda Bodas & Jua Kalis</strong>
+            🎉 Join <strong>50+ informal earners getting early access</strong>
           </p>
         </div>
       </div>

@@ -2,16 +2,44 @@
 
 ## 🎯 Projekt-Kontext
 
-**Product Vision:**
-M-Recon ist eine Mobile-First-App für kleine kenianische KMUs (1-10 Mitarbeiter), 
-die Safaricom M-Pesa PDF-Statements automatisch in organisierte Finanzunterlagen 
-umwandelt – für Kredit-Anträge (WEF, Banken, etc.).
+**EMERGENCY UPDATE (13.11.2025):** Waitlist page reality check → Critical copy fixes  
+**See:** `/docs/EMERGENCY-CHANGES.md` for 7/10 → 9/10 roadmap
+
+**Product Vision (UPDATED 13.11.2025):**
+M-Recon enables informal income earners in Kenya to **access loans** through clean M-Pesa financial records.
+NOT a bookkeeping tool – a **Financial Inclusion Platform**.
+
+**Primary Value Prop:** Loan Access (60% rejections due to poor records) ✅ PAINKILLER  
+**Secondary Value Prop:** Time-Saving (20h/month saved) ⏰ VITAMIN
 
 **Diese Waitlist-Site ist Phase 0 (Product Validation):**
-- Ziel: 30+ Email-Signups in Woche 1
-- Zielgruppe: Dukas, Mama Mbogas, Salons, kleine Shops in Nairobi
-- Launch-Kanäle: WhatsApp-Gruppen, Grace's Cousine + 10 KMU-Interviews
-- Success-Metric: 50%+ der Interviews sagen "Ja, würde Email-Adresse geben"
+- Ziel: 500+ Email-Signups by Feb 2026
+- NEW Ziel: 40%+ check "loan partnerships" checkbox
+- Zielgruppe: Informal income earners (Mama Mboga, Boda Boda, Jua Kali, Freelancers)
+- Loan Types: Business, Personal, SACCO, Chama (ALL use same M-Recon output!)
+- Launch-Kanäle: SACCO partnerships (primary) + WhatsApp + Grace's network
+- Success-Metric: >5% conversion rate (mobile) → TARGET: >7% after critical fixes
+
+**CRITICAL COPY GUIDELINES (13.11.2025):**
+```yaml
+❌ AVOID:
+  - Headlines about "time-saving" or "bookkeeping"
+  - "Free Forever" (we'll charge KES 500/mo later!)
+  - Technical jargon ("parse", "extract", "process")
+  - Vague benefits ("with confidence", "seamlessly")
+  - Fake social proof numbers (be honest about signup count)
+
+✅ USE INSTEAD:
+  - "Get Approved for Loans 3x Faster" (outcome-focused)
+  - "Free for First 100" (honest, creates urgency)
+  - "Turn into loan report" (clear transformation)
+  - "Ready to submit to SACCO/Bank" (specific outcome)
+  - Real numbers OR remove numbers entirely
+
+Priority:
+  1. 🔥 Loan Access (painkiller - validated pain!)
+  2. ⏰ Time-Saving (vitamin - secondary benefit)
+```
 
 ---
 
@@ -120,10 +148,10 @@ NEXT_PUBLIC_PLAUSIBLE_DOMAIN=m-recon.vercel.app
 
 ---
 
-## 📊 Supabase Schema
+## 📊 Supabase Schema (UPDATED 13.11.2025)
 
 ```sql
--- Waitlist-Table
+-- Waitlist-Table (UPDATED: added loan_interest column)
 CREATE TABLE waitlist_signups (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   email VARCHAR(255) NOT NULL UNIQUE,
@@ -131,6 +159,7 @@ CREATE TABLE waitlist_signups (
   business_type VARCHAR(100) NOT NULL,
   transactions_per_month VARCHAR(20),
   referral_source VARCHAR(255),
+  loan_interest BOOLEAN DEFAULT FALSE,  -- NEW: Track loan partnership interest
   created_at TIMESTAMP DEFAULT NOW(),
   email_confirmed BOOLEAN DEFAULT FALSE,
   notes TEXT
@@ -161,10 +190,12 @@ CREATE POLICY "Allow authenticated read" ON waitlist_signups
 ### **Manual Testing (vor Deployment):**
 - [ ] Form-Submission funktioniert (Email landet in Supabase)
 - [ ] Validation funktioniert (Email-Format, Kenya-Phone-Format)
+- [ ] loan_interest checkbox saves correctly (NEW)
 - [ ] Confirmation-Email wird versendet (Resend)
 - [ ] Success-Page wird angezeigt
 - [ ] Mobile-Responsiveness (Chrome DevTools Mobile-View)
 - [ ] Performance: Lighthouse-Score >90 (Mobile)
+- [ ] Screenshot/proof elements visible (NEW - after adding)
 
 ### **Automated Testing (optional für später):**
 - Unit-Tests: Zod-Validations (Vitest)
@@ -186,19 +217,19 @@ pnpm run dev  # http://localhost:3000
 git push origin main
 
 # Preview-Deployment bei Pull-Request
-git checkout -b feature/form-validation
-git push origin feature/form-validation
+git checkout -b feature/emergency-copy-fixes
+git push origin feature/emergency-copy-fixes
 # → Vercel erstellt Preview-URL
 ```
 
-### **3. Custom Domain (optional):**
-- Kaufe Domain: `m-recon.com` (~$10/Jahr bei Namecheap)
-- Vercel-Dashboard: Settings → Domains → Add Domain
-- Nameservers auf Vercel umstellen
+### **3. Custom Domain:**
+- Domain: `m-recon.com` (bereits configured)
+- Vercel-Dashboard: Settings → Domains
+- SSL automatically enabled
 
 ---
 
-## 📈 Analytics-Setup
+## 📈 Analytics-Setup (UPDATED 13.11.2025)
 
 ### **Plausible (privacy-friendly, kein Cookie-Banner):**
 ```tsx
@@ -214,8 +245,14 @@ git push origin feature/form-validation
 ```tsx
 // Nach Form-Submission
 window.plausible('Waitlist Signup', {
-  props: { business_type: formData.businessType }
+  props: { 
+    business_type: formData.businessType,
+    loan_interest: formData.loanInterest  // NEW: Track checkbox
+  }
 });
+
+// NEW: Track loan_interest checkbox clicks
+window.plausible('Loan Interest Checked');
 ```
 
 ---
@@ -285,12 +322,100 @@ chore: update dependencies
 
 ## 📚 Primary Source of Truth (SoT)
 
+**UPDATED HIERARCHY (13.11.2025):**
 **Wenn Konflikte entstehen, diese Hierarchie:**
-1. `/docs/PRODUCT-VISION.md` (Was wird gebaut? Warum?)
-2. `.github/copilot-instructions.md` (Diese Datei – Tech-Stack, Struktur)
-3. `/docs/COPILOT-WORKFLOW.md` (Arbeitsverhalten, Code-Style)
-4. `/docs/WAITLIST-PLAN.md` (Task-by-Task-Plan)
-5. Code-Comments (Inline-Erklärungen für komplexe Logik)
+1. `/docs/EMERGENCY-CHANGES.md` (NEW - Critical copy fixes 7/10 → 9/10)
+2. `/docs/PRODUCT-VISION-2.0.md` (Was wird gebaut? Warum? Loan-access focus!)
+3. `.github/copilot-instructions.md` (Diese Datei – Tech-Stack, Struktur, Copy Guidelines)
+4. `/docs/COPILOT-WORKFLOW.md` (Arbeitsverhalten, Code-Style, Copy Guidelines)
+5. `/docs/REDESIGN-PLAN.md` (Task-by-Task-Plan mit Emergency Fixes)
+6. Code-Comments (Inline-Erklärungen für komplexe Logik)
+
+---
+
+## 💡 Copilot-Verhalten
+
+### **🤖 Claude Code Integration (NEW 13.11.2025)**
+
+**Mo hat jetzt Claude Code in WSL verfügbar!**
+
+**CRITICAL: Check Complexity FIRST:**
+
+```yaml
+BEFORE implementing ANY task:
+  1. Count files affected
+  2. Check if architecture changes needed
+  3. Assess cross-layer impact (Frontend + API + DB)
+
+IF (≥3 files OR architecture change OR cross-layer):
+  → ASK: "Soll Claude Code das übernehmen?"
+  → GIVE: Recommendation + Reasoning
+  → IF YES: Use Handoff Template (see CLAUDE-CODE-INTEGRATION.md)
+
+IF (1-2 files AND simple change):
+  → DO IT: Proceed with implementation
+
+See: /.github/CLAUDE-CODE-INTEGRATION.md for full workflow
+```
+
+### **Wenn ich Frage: "Implementiere Task X"**
+1. **CHECK COMPLEXITY FIRST** (Copilot vs Claude Code decision!)
+2. Lese `/docs/EMERGENCY-CHANGES.md` FIRST (new critical fixes!)
+3. Lese `/docs/PRODUCT-VISION-2.0.md` für Value Prop context
+4. Checke diese Datei für Tech-Stack & Copy-Guidelines
+5. **If complex:** Ask about Claude Code
+6. **If simple:** Implementiere Task mit TypeScript Strict-Mode
+7. **Follow COPY GUIDELINES** (loan-focused, outcome-based, no jargon)
+8. Füge **deutsche Kommentare** hinzu (oben in jeder Datei: WARUM/WIE/WAS)
+9. Sage mir: "✅ Task X fertig. Nächster Task: [Y]?"
+
+### **Wenn ich sage: "Erklär mir das"**
+1. User-Explanation (2-3 Sätze, deutsch, non-technical)
+2. Technical-Explanation (Code-Details, für Devs)
+3. Frage: "Soll ich weitermachen mit Task [Y]?"
+
+### **Wenn ich sage: "Das funktioniert nicht"**
+1. Frage nach Error-Message (Screenshot oder Text)
+2. Debugge Schritt-für-Schritt
+3. Erkläre die Lösung (warum war das falsch?)
+
+### **WICHTIG: Deutsche Kommentare**
+- **JEDE Datei** bekommt oben einen Block-Kommentar auf Deutsch
+- Format:
+```typescript
+/**
+ * WARUM: [Business-Purpose, für wen, wofür]
+ * WIE: [Technische Implementierung, welche Tools]
+ * WAS: [Was macht diese Datei konkret]
+ */
+```
+- Inline-Kommentare für komplexe Logik auch auf Deutsch
+
+### **CRITICAL: Copy Guidelines (13.11.2025)**
+```yaml
+When writing ANY user-facing text:
+  ❌ AVOID:
+    - "Free Forever" (we charge KES 500/mo later!)
+    - "Parse", "extract", "process" (technical jargon)
+    - "Bookkeeping", "time-saving" (wrong value prop - vitamin not painkiller!)
+    - Vague benefits ("with confidence", "seamlessly")
+    - Fake numbers (be honest about signup count)
+  
+  ✅ USE:
+    - "Free for First 100" (honest + urgency)
+    - "Turn into loan report" (clear transformation)
+    - "Get approved 3x faster" (loan-access focus!)
+    - "Ready to submit to SACCO/Bank" (specific outcome)
+    - Real numbers OR remove entirely
+
+  Priority Order:
+    1. 🔥 Loan Access (painkiller - "get approved", "stop rejection")
+    2. ⏰ Time-Saving (vitamin - "2 minutes", secondary benefit)
+```
+
+---
+
+**Ende der Copilot Instructions** 🎯
 
 ---
 

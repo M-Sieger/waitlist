@@ -18,12 +18,13 @@ const inter = Inter({ subsets: ['latin'] });
 
 // SEO-Meta-Tags (für Social-Media-Previews, Google-Search)
 export const metadata: Metadata = {
-  title: 'M-Recon – M-Pesa Bookkeeping for Kenyan SMEs',
-  description: 'Turn your Safaricom M-Pesa PDF into organized financial records in 2 minutes. Built for small Kenyan businesses.',
+  metadataBase: new URL('https://m-recon.com'),
+  title: 'M-Recon – Loan-ready M-Pesa reports in 2 minutes',
+  description: 'Get approved for loans 3x faster by turning your M-Pesa statements into lender-ready reports that Banks, SACCOs, and Chamas accept.',
   openGraph: {
-    title: 'M-Recon – M-Pesa Bookkeeping for Kenyan SMEs',
-    description: 'Stop wasting 20 hours every month on M-Pesa bookkeeping.',
-    url: 'https://m-recon.vercel.app',
+    title: 'M-Recon – Loan-ready M-Pesa reports in 2 minutes',
+    description: 'Stop getting rejected for “insufficient records” – share organized cash-flow proof with any lender.',
+    url: 'https://m-recon.com',
     siteName: 'M-Recon',
     images: [
       {
@@ -37,8 +38,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'M-Recon – M-Pesa Bookkeeping for Kenyan SMEs',
-    description: 'Stop wasting 20 hours every month on M-Pesa bookkeeping.',
+    title: 'M-Recon – Loan-ready M-Pesa reports in 2 minutes',
+    description: 'Turn your M-Pesa history into a loan-ready report trusted by Banks, SACCOs, and Chamas.',
     images: ['/og-image.png'],
   },
 };

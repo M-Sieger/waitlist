@@ -1,0 +1,145 @@
+{
+  "hero": {
+    "headline": "Acha Kupoteza Masaa 20 Kila Mwezi kwenye Hesabu za M-Pesa",
+    "subheadline": "Badilisha PDF yako ya Safaricom kuwa taarifa za mkopo ndani ya dakika 2.",
+    "subheadlineExtended": "Inafanya kazi kwa Mikopo ya Biashara, Binafsi, SACCO, na Chama — pata idhini haraka zaidi.",
+    "privacy": "Data yako inabaki salama",
+    "cta": "Pata Ufikiaji wa Mapema – Bila Malipo Milele",
+    "socialProof": "Jiunge na {count}+ Mama Mboga, Wapanda Boda na Jua Kali"
+  },
+  "problem": {
+    "headline": "Tatizo Kila Mtu Anayepata Kipato cha Kawaida Anakabiliana Nalo",
+    "stat": "Wakenya milioni {count} wanakataliwa mkopo kila mwaka",
+    "card1": {
+      "title": "Mikopo inakataliwa kwa sababu rekodi zako haziko wazi",
+      "description": "Iwe ni Mkopo wa Biashara, Mkopo Binafsi, au Mkopo wa SACCO – wote wanahitaji uthibitisho wa kipato. Maandishi ya mkono hayatoshi."
+    },
+    "card2": {
+      "title": "Kila mkopeshaji anahitaji taarifa safi wanayoweza kuamini",
+      "description": "Benki, SACCO, Chama, Women's Fund, WEF – wote wanauliza taarifa za M-Pesa zilizopangwa zinazoonyesha kipato thabiti."
+    },
+    "card3": {
+      "title": "Uhasibu wa mkono unaiba masaa 20+ kila mwezi",
+      "description": "Kunakili miamala 200+ ya M-Pesa kwenye Excel, kupigana na password za PDF, na kulinganisha jumla inachukua nguvu."
+    }
+  },
+  "solution": {
+    "headline": "Jinsi M-Recon Inavyofanya Kazi",
+    "step1": {
+      "title": "Pakia taarifa yako ya Safaricom M-Pesa",
+      "description": "PDF, CSV, au hata picha ya skrini – sekunde 60 kuanza, password zinashughulikiwa kiotomatiki."
+    },
+    "step2": {
+      "title": "Tunapanga kila kitu kiotomatiki ndani ya dakika 2",
+      "description": "Kipato, matumizi, mtiririko wa fedha, na mwenendo vinawekwa kwa kategoria kwako. Hakuna Excel, hakuna kuhariri kwa mkono."
+    },
+    "step3": {
+      "title": "Omba mkopo kwa YEYOTE mkopeshaji kwa ujasiri",
+      "description": "Pakua ripoti tayari za mkopo au ushiriki moja kwa moja na Benki, SACCO, Chama, WEF, Women's Fund – mkopeshaji yeyote anayehitaji uthibitisho wa kipato."
+    }
+  },
+  "socialProof": {
+    "headline": "Wanaoaminika na Watu Wanaohitaji Mikopo Zaidi",
+    "card1": {
+      "title": "Miradi ya majaribio ya SACCO inaanza",
+      "description": "Majadiliano ya majaribio yanaendelea na Kimisitu SACCO na wakopeshaji wa jamii ya Nairobi. Wanaojiandikisha kwanza wanapata mwaliko wa kwanza."
+    },
+    "card2": {
+      "title": "{count}+ wapata kipato cha kawaida wamejiandikisha",
+      "description": "Mama Mboga, Wapanda Boda, Jua Kali, na wafanyakazi huru tayari wamejiunge kuhakikisha ufikiaji wa haraka kwa mikopo."
+    },
+    "card3": {
+      "title": "Tuliongea na wateja wa kweli",
+      "description": "Mahojiano 20+ kina na SME za Kenya na wajasiriamali vilibuni bidhaa — tunajenga kile hasa wakopeshaji wanachotaka."
+    }
+  },
+  "pricing": {
+    "headline": "Bei Inayokua na Mahitaji Yako ya Mkopo",
+    "subheadline": "Anza bure tunapozindua. Boresha unapohitaji miamala isiyo na kikomo na uwasilishaji wa moja kwa moja kwa wakopeshaji.",
+    "free": {
+      "name": "Mpango wa Bure",
+      "price": "KES 0",
+      "highlight": "Kamili kwa kuanza",
+      "badge": "Ya Pekee kwa Orodha ya Kusubiri",
+      "features": [
+        "Miamala 50/mwezi imejumuishwa",
+        "Usafirishaji wa PDF + Excel tayari za mkopo",
+        "Ushirikiano wa mkono na wakopeshaji",
+        "Msaada wa jamii kupitia WhatsApp"
+      ]
+    },
+    "growth": {
+      "name": "Mpango wa Ukuaji",
+      "price": "KES 499/mwezi",
+      "highlight": "Fungua ufadhili wa haraka",
+      "badge": "Ofa ya Uzinduzi",
+      "features": [
+        "Miamala isiyo na kikomo",
+        "Ushirikiano wa kiotomatiki na wakopeshaji (Benki, SACCO, Chama)",
+        "Utangulizi wa rufaa za mkopo",
+        "Msaada wa kipaumbele + simu ya uanzishaji"
+      ]
+    }
+  },
+  "waitlist": {
+    "headline": "Jiunge na Orodha ya Kusubiri",
+    "subheadline": "Kuwa miongoni mwa 100 wa kwanza kupata ufikiaji wa bure maishani (hadi miamala 30/mwezi). Tutakujulisha M-Recon itakapozinduliwa.",
+    "form": {
+      "email": "Barua Pepe",
+      "phone": "Nambari ya Simu",
+      "businessType": "Unafanya nini?",
+      "businessTypePlaceholder": "Chagua kazi yako...",
+      "transactionsPerMonth": "Miamala Kwa Mwezi (si lazima)",
+      "transactionsPlaceholder": "Chagua upeo...",
+      "referralSource": "Ulijuaje kutuhusu? (si lazima)",
+      "referralPlaceholder": "WhatsApp, Rafiki, nk.",
+      "loanInterest": "Nataka ufikiaji wa mapema kwa ushirikiano wa mikopo (Benki, SACCO, Chama). Nialika kwenye programu za majaribio na uanzishaji wa kupendekezwa kwa wakopeshaji.",
+      "submit": "Jiunge na Orodha",
+      "submitting": "Inajiandikisha...",
+      "disclaimer": "Kwa kujiunge, unakubali kupokea habari za uzinduzi kupitia barua pepe."
+    },
+    "success": {
+      "headline": "Uko kwenye orodha!",
+      "message": "Tutakujulisha M-Recon itakapozinduliwa. Angalia barua pepe yako kwa uthibitisho."
+    }
+  },
+  "faq": {
+    "headline": "Maswali Yanayoulizwa Mara kwa Mara",
+    "questions": {
+      "q1": {
+        "question": "Inafanya kazi kwa Mikopo Binafsi pia? Au Mikopo ya Biashara tu?",
+        "answer": "NDIO! M-Recon inafanya kazi kwa AINA YOYOTE ya mkopo: Mikopo ya Biashara, Mikopo Binafsi, Mikopo ya SACCO, Mikopo ya Chama, Women's Fund, WEF. Tunapanga kipato chako cha M-Pesa – wakopeshaji hawajali unavyoita."
+      },
+      "q2": {
+        "question": "M-Recon itaGharimu kiasi gani?",
+        "answer": "KES 500/mwezi. Wanachama 100 wa kwanza wa orodha ya kusubiri wanapata ufikiaji wa bure maishani kwa hadi miamala 30/mwezi."
+      },
+      "q3": {
+        "question": "Benki/taasisi zipi zinakubali rekodi za M-Recon?",
+        "answer": "Muundo wa rekodi zetu unakidhi mahitaji ya kawaida kwa Benki, SACCO, Chama, WEF, na Women's Fund. Taarifa yako iliyopangwa ya M-Pesa inafanya kazi kwa WOTE."
+      },
+      "q4": {
+        "question": "Je, mnashirikiana na SACCO au wakopeshaji wowote?",
+        "answer": "Tunaandaa majaribio na SACCO za Nairobi (kuanzia na Kimisitu SACCO) na wakopeshaji wa jamii. Mara ushirikiano wa kwanza utakapokuwa hai, wanachama wa orodha ya kusubiri wanapata mialiko ya mapema na uanzishaji wa kupendekezwa."
+      },
+      "q5": {
+        "question": "Je, faragha ya data yangu?",
+        "answer": "Data yako ya kifedha imefichwa na kuhifadhiwa salama kwenye seva za Kenya. Hatuwezi kushiriki na watu wengine."
+      },
+      "q6": {
+        "question": "M-Recon itazinduliwa lini?",
+        "answer": "Tunalenga Robo ya 1 2026. Jiunge na orodha ya kusubiri ili kuwa wa kwanza kujua na kujaribu beta!"
+      },
+      "q7": {
+        "question": "Je, ninahitaji mtandao wakati wote?",
+        "answer": "Hapana. Pakia PDF yako ukiwa na mtandao, kisha fikia rekodi zako bila mtandao wakati wowote."
+      }
+    }
+  },
+  "footer": {
+    "about": "Kuhusu",
+    "privacy": "Faragha",
+    "terms": "Masharti",
+    "tagline": "Kubadilisha data yako ya M-Pesa kuwa fursa za mkopo"
+  }
+}

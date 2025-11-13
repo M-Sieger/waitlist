@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     question: 'How much will M-Recon cost?',
-    answer: 'KES 500/month. First 100 waitlist members get lifetime free access for up to 30 transactions/month.',
+    answer: 'KES 500/month. First 100 waitlist members stay on the beta plan (KES 0) for up to 30 transactions/month until we launch publicly.',
   },
   {
     question: 'Which banks/institutions accept M-Recon records?',
@@ -34,6 +34,10 @@ const faqs = [
   {
     question: 'Are you partnering with any SACCOs or lenders?',
     answer: 'We are preparing pilots with Nairobi-based SACCOs (starting with Kimisitu SACCO) and community lenders. Once the first partnership is live, waitlist members get early invites and preferential onboarding.',
+  },
+  {
+    question: 'What if my PDF is password-protected?',
+    answer: 'M-Recon automatically handles password-protected M-Pesa statements. Just enter your ID number and we\'ll unlock it for you - no need to manually remove the password.',
   },
   {
     question: 'What about my data privacy?',

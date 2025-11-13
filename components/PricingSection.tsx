@@ -8,19 +8,19 @@ const tiers = [
   {
     name: 'Free Tier',
     price: 'KES 0',
-    highlight: 'Perfect for getting started',
+    highlight: 'Free for the first 100 loan-seekers',
     features: [
       '50 transactions/month included',
-      'Loan-ready PDF + Excel exports',
+      'Loan-ready PDF + Excel exports accepted by SACCOs',
       'Manual lender sharing',
       'Community WhatsApp support',
     ],
-    badge: 'Waitlist Exclusive',
+    badge: 'Waitlist Beta',
   },
   {
     name: 'Growth Tier',
     price: 'KES 499/mo',
-    highlight: 'Unlock faster financing',
+    highlight: 'Coming after pilot – unlimited usage',
     features: [
       'Unlimited transactions',
       'Automated lender sharing (Banks, SACCOs, Chamas)',

@@ -25,14 +25,14 @@ const steps = [
   {
     icon: Zap,
     step: '2',
-    title: 'We auto-organize everything in under 2 minutes',
-    description: 'Income, expenses, cash flow, and trends categorized for you. No Excel, no manual editing.',
+    title: 'We turn it into a professional loan report in 2 minutes',
+    description: 'Income, expenses, cash flow, and trends organized into a format lenders trust. Ready to submit to your SACCO, Bank, or Chama.',
   },
   {
     icon: FileCheck,
     step: '3',
-    title: 'Apply to ANY lender with confidence',
-    description: 'Download loan-ready reports or share directly with Banks, SACCOs, Chamas, WEF, Women\'s Fund – any lender that needs proof of income.',
+    title: 'Submit to Banks, SACCOs, or Chamas',
+    description: 'Download your loan-ready report or share directly with lenders. Increase approval chances by showing organized records that Banks, SACCOs, and Chamas trust.',
   },
 ];
 

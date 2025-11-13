@@ -37,8 +37,8 @@ export const waitlistSchema = z.object({
   // Referral-Source: Optional (Tracking für Marketing)
   referralSource: z.string().optional(),
 
-  // Loan-Interest Checkbox: Optional, default false
-  loanInterest: z.boolean().optional().default(false),
+  // Loan-Interest Checkbox: Optional für User, aber boolean-Wert
+  loanInterest: z.boolean(),
 });
 
 // TypeScript-Type aus Zod-Schema generieren

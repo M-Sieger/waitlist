@@ -18,8 +18,8 @@ const proofItems = [
   },
   {
     icon: Users,
-    title: '127+ informal earners onboard',
-    description: 'Mama Mbogas, Boda Bodas, Jua Kalis, and freelancers already joined to secure faster access to loans.',
+    title: '50+ informal earners getting early access',
+    description: 'Mama Mbogas, Boda Bodas, Jua Kalis, and freelancers already joined to secure faster loan approvals.',
   },
   {
     icon: MessageCircleHeart,
