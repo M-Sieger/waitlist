@@ -27,6 +27,9 @@ export default function ValidationSurveyPage() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Synchronous guard to prevent double-submit race condition
+  const isSubmittingRef = React.useRef(false);
+
   // Dynamic questions array based on responses (Option C: Conditional Rendering)
   const getVisibleQuestions = () => {
     const allQuestions = [
@@ -246,8 +249,17 @@ export default function ValidationSurveyPage() {
   };
 
   const handleSubmit = async () => {
+    // CRITICAL: Prevent double-submit race condition
+    // (User double-clicks before React re-renders disabled button)
+    if (isSubmittingRef.current) {
+      console.log('⚠️ Double-submit prevented');
+      return;
+    }
+
+    // Set both synchronous ref AND async state
+    isSubmittingRef.current = true;
     setIsSubmitting(true);
-    
+
     try {
       const response = await fetch('/api/validation-survey', {
         method: 'POST',
@@ -266,9 +278,12 @@ export default function ValidationSurveyPage() {
     } catch (error) {
       console.error('Survey submission error:', error);
       alert('Sorry, submission failed. Please try again or contact support.');
-    } finally {
+
+      // Reset on error so user can retry
+      isSubmittingRef.current = false;
       setIsSubmitting(false);
     }
+    // NOTE: Don't reset on success - stay in "submitted" state
   };
 
   const currentQuestion = questions[currentStep];
