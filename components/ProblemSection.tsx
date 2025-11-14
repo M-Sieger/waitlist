@@ -28,8 +28,8 @@ const problems = [
   },
   {
     icon: Timer,
-    title: 'Manual bookkeeping steals 20+ hours every month',
-    description: 'Copying 200+ M-Pesa transactions into Excel, fighting with PDF passwords, and reconciling totals is exhausting.',
+    title: 'Manual bookkeeping takes hours every month - or gets skipped entirely',
+    description: 'Copying 200+ M-Pesa transactions into Excel, fighting with PDF passwords, and reconciling totals is exhausting - or worse, you skip it and get rejected.',
   },
 ];
 
@@ -43,7 +43,10 @@ export default function ProblemSection() {
           The Problem Every Informal Income Earner Faces
         </h2>
         <p className="text-center text-text/60 mb-12">
-          💔 <strong>3.2M Kenyans</strong> get rejected for loans every year
+          💔 <strong>Over 4 million Kenyans</strong> (14% of adults) get rejected for loans every year*
+        </p>
+        <p className="text-center text-xs text-text/50 mb-8">
+          *FSD Kenya FinAccess Household Survey 2024/2025
         </p>
         
         {/* Problem-Grid: 3 Spalten auf Desktop, 1 Spalte auf Mobile */}

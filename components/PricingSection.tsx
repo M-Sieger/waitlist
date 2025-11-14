@@ -6,28 +6,29 @@
 
 const tiers = [
   {
-    name: 'Free Tier',
-    price: 'KES 0',
-    highlight: 'Free for the first 100 loan-seekers',
+    name: 'Early Access',
+    price: 'FREE',
+    highlight: '3 months free - First 100 only',
     features: [
       '50 transactions/month included',
-      'Loan-ready PDF + Excel exports accepted by SACCOs',
+      'Bank-ready PDF report + Excel export',
       'Manual lender sharing',
       'Community WhatsApp support',
     ],
-    badge: 'Waitlist Beta',
+    badge: 'Waitlist Exclusive',
   },
   {
-    name: 'Growth Tier',
+    name: 'Growth (After Trial)',
     price: 'KES 499/mo',
-    highlight: 'Coming after pilot – unlimited usage',
+    highlight: 'Available after your 3-month trial',
     features: [
       'Unlimited transactions',
+      'Bank-ready PDF + Excel export (unlimited)',
       'Automated lender sharing (Banks, SACCOs, Chamas)',
       'Loan referral introductions',
       'Priority support + onboarding call',
     ],
-    badge: 'Launch Offer',
+    badge: 'Coming Soon',
   },
 ];
 
@@ -36,10 +37,10 @@ export default function PricingSection() {
     <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-text mb-4">
-          Pricing that Grows with Your Loan Needs
+          Join the Waitlist - First 100 Get Free Access
         </h2>
         <p className="text-center text-text/70 mb-12 max-w-2xl mx-auto">
-          Start free while we launch. Upgrade when you need unlimited transactions and direct lender referrals.
+          Be among the first to use M-Recon. Early access includes 3 months free, then decide if you want to upgrade for unlimited features.
         </p>
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {tiers.map((tier) => (

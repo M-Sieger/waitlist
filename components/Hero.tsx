@@ -19,8 +19,8 @@ export default function Hero() {
           
           {/* Headline: LOAN-ACCESS VALUE PROP (nicht time-saving!) */}
           <h1 className="text-4xl md:text-6xl font-bold text-text mb-6 leading-tight">
-            Get Approved for Your Next Loan{' '}
-            <span className="text-primary">3x Faster</span>
+            Get Your Next Loan{' '}
+            <span className="text-primary">Approved Faster</span>
           </h1>
 
           {/* Subheadline: Outcome-focused (was bekommt der User?) */}
@@ -41,7 +41,7 @@ export default function Hero() {
           
           {/* Social-Proof: Ehrliche Zahlen (keine Fake-Numbers!) */}
           <p className="mt-6 text-sm text-text/60">
-            🎉 Join <strong>50+ informal earners getting early access</strong>
+            🎉 <strong>Be among the first 100 to get free access</strong>
           </p>
         </div>
       </div>

@@ -141,7 +141,7 @@ export default function ValidationSurveyPage() {
       {
         id: 'time_savings',
         section: 'Time & Cost',
-        question: '9. If loan approval took 5 minutes instead of days/weeks, how much would that help you?',
+        question: '9. If loan approval took 24 hours instead of 2-4 weeks, how much would that help you?',
         type: 'radio',
         options: [
           'Not helpful',
@@ -209,8 +209,8 @@ export default function ValidationSurveyPage() {
       // SECTION 7: CONTACT
       {
         id: 'phone_number',
-        section: 'Payment',
-        question: '14. Your M-Pesa phone number (for KES 150 payment)',
+        section: 'Contact',
+        question: '14. Your M-Pesa phone number (we\'ll send you KES 150 as thank-you)',
         type: 'text',
         placeholder: '07XXXXXXXX or 254XXXXXXXXX'
       }
@@ -291,7 +291,7 @@ export default function ValidationSurveyPage() {
           <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6 mb-6">
             <DollarSign className="w-12 h-12 text-green-600 mx-auto mb-3" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Payment: KES 150
+              Thank You Payment: KES 150
             </h3>
             <p className="text-gray-700 mb-4">
               You will receive KES 150 via M-Pesa within 24 hours to:
@@ -300,8 +300,7 @@ export default function ValidationSurveyPage() {
               {responses.phone_number}
             </p>
             <p className="text-sm text-gray-600 mt-4">
-              Payment from: M-Recon<br/>
-              If you don&apos;t receive it, WhatsApp: +254-XXX-XXX-XXX
+              Payment from: M-Recon
             </p>
           </div>
 
@@ -310,7 +309,7 @@ export default function ValidationSurveyPage() {
               <TrendingUp className="w-8 h-8 text-blue-600 mx-auto mb-2" />
               <p className="text-sm text-gray-700 font-semibold">
                 ✅ You said YES to free trial!<br/>
-                We&apos;ll contact you within 48 hours with early access.
+                We&apos;ll contact you before launch with early access details.
               </p>
             </div>
           )}
@@ -433,7 +432,7 @@ export default function ValidationSurveyPage() {
                 {currentQuestion.id === 'phone_number' && (
                   <p className="text-sm text-gray-500 mt-2 flex items-center gap-2">
                     <AlertCircle className="w-4 h-4" />
-                    We&apos;ll send KES 150 to this number after you submit
+                    KES 150 will be sent within 24 hours after you submit
                   </p>
                 )}
               </div>

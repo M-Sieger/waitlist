@@ -7,15 +7,15 @@
 const proofItems = [
   {
     title: 'Cash-flow timeline lenders expect',
-    description: '12-month trend of incoming vs. outgoing M-Pesa transfers so credit officers see repayment capacity at a glance.',
+    description: '12-month trend of incoming vs. outgoing M-Pesa transfers so credit officers see repayment capacity at a glance. Delivered as PDF + Excel.',
   },
   {
     title: 'Loan-ready summary page',
-    description: 'Business snapshot with total float, largest payers, and daily average volume mapped to the exact sections SACCO loan forms request.',
+    description: 'Business snapshot with total float, largest payers, and daily average volume mapped to the exact sections SACCO loan forms request. Professional PDF format.',
   },
   {
     title: 'Audit trail straight from M-Pesa',
-    description: 'Every transaction keeps the original reference ID and timestamp, so banks can validate authenticity without emailing you back and forth.',
+    description: 'Every transaction keeps the original reference ID and timestamp, so banks can validate authenticity without emailing you back and forth. Exportable to Excel for their systems.',
   },
 ];
 
@@ -28,10 +28,10 @@ export default function LoanReportProof() {
             Proof until screenshots land
           </p>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            What lenders receive inside your M-Recon report
+            What lenders receive: Bank-ready PDF + Excel export
           </h2>
           <p className="text-white/80">
-            Shaped with 20+ interviews from SACCO credit officers and Mama Mboga hustlers, so every section matches the checklist they actually use when approving loans.
+            Shaped by interviews with SACCO credit officers and informal earners, so every section matches the checklist lenders actually use when approving loans. Download as PDF or Excel - both formats accepted by all Banks, SACCOs, and Chamas.
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">

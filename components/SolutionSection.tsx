@@ -32,7 +32,7 @@ const steps = [
     icon: FileCheck,
     step: '3',
     title: 'Submit to Banks, SACCOs, or Chamas',
-    description: 'Download your loan-ready report or share directly with lenders. Increase approval chances by showing organized records that Banks, SACCOs, and Chamas trust.',
+    description: 'Download as bank-ready PDF or Excel export. Share directly with lenders to increase approval chances. Both formats accepted by all Banks, SACCOs, and Chamas.',
   },
 ];
 
