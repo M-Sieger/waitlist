@@ -7,7 +7,7 @@
 const proofItems = [
   {
     title: 'Cash-flow timeline lenders expect',
-    description: '12-month trend of incoming vs. outgoing M-Pesa transfers so credit officers see repayment capacity at a glance. Delivered as PDF + Excel.',
+    description: '6-month cash-flow analysis (up to 12 months available) showing incoming vs. outgoing M-Pesa transfers so credit officers see repayment capacity at a glance. Delivered as PDF + Excel.',
   },
   {
     title: 'Loan-ready summary page',

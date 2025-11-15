@@ -28,11 +28,10 @@ export default function HomePage() {
       <section id="waitlist" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-text mb-4">
-            Join the Waitlist
+            Join the Waitlist - Get 3 Months Free
           </h2>
           <p className="text-center text-text/70 mb-12 max-w-2xl mx-auto">
-            Be among the first 100 to use the beta free of charge (up to 30 transactions/month) until public pricing rolls out.
-            We will notify you when M-Recon launches.
+            Be among the first 100 users to get <strong>3 months completely FREE</strong>. After that, pay only KES 200 per report or KES 400/month for unlimited access. No credit card required to join.
           </p>
           <WaitlistForm />
         </div>

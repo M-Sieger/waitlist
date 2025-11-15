@@ -17,23 +17,23 @@ import {
   ChevronUp,
 } from 'lucide-react';
 
-// Array mit allen FAQ-Items
+// Array mit allen FAQ-Items (Updated based on GTM Playbook insights)
 const faqs = [
+  {
+    question: 'Do I need a Safaricom-certified statement?',
+    answer: 'Most SACCOs and Chamas accept M-Recon reports for initial loan assessment. Some lenders may require a certified original statement (costs KES 50 from Safaricom) for final approval. M-Recon provides a step-by-step guide if certification is needed.',
+  },
+  {
+    question: 'How much does M-Recon cost?',
+    answer: 'Pay KES 200 per report (perfect for one-time loan applications) or KES 400/month for unlimited reports. First 100 users get 3 months completely FREE with no credit card required.',
+  },
   {
     question: 'Does this work for Personal Loans too? Or just Business Loans?',
     answer: 'YES! M-Recon works for ANY loan type: Business Loans, Personal Loans, SACCO Loans, Chama Loans, Women\'s Fund, WEF. We organize your M-Pesa income – lenders don\'t care what you call it.',
   },
   {
-    question: 'How much will M-Recon cost?',
-    answer: 'KES 500/month. First 100 waitlist members stay on the beta plan (KES 0) for up to 30 transactions/month until we launch publicly.',
-  },
-  {
-    question: 'Which banks/institutions accept M-Recon records?',
-    answer: 'Our records format meets standard requirements for Banks, SACCOs, Chamas, WEF, and Women\'s Fund. Your organized M-Pesa statement works for ALL of them.',
-  },
-  {
-    question: 'Are you partnering with any SACCOs or lenders?',
-    answer: 'We are preparing pilots with Nairobi-based SACCOs (starting with Kimisitu SACCO) and community lenders. Once the first partnership is live, waitlist members get early invites and preferential onboarding.',
+    question: 'Which banks/institutions accept M-Recon reports?',
+    answer: 'Most SACCOs (like Kimisitu, Hazina, Stima), Chamas, and MFIs accept organized M-Pesa reports. Banks may require additional documentation. We\'re actively partnering with lenders to streamline acceptance.',
   },
   {
     question: 'What if my PDF is password-protected?',
@@ -41,11 +41,11 @@ const faqs = [
   },
   {
     question: 'What about my data privacy?',
-    answer: 'Your financial data is encrypted and stored securely on Kenyan servers. We never share it with third parties.',
+    answer: 'Your M-Pesa data stays 100% private. We process your statement locally and don\'t store your M-Pesa password or PIN. All reports are encrypted and only accessible by you.',
   },
   {
     question: 'When will M-Recon launch?',
-    answer: 'We are targeting Q1 2026. Join the waitlist to be the first to know and test the beta!',
+    answer: 'We are targeting Q1 2026. Join the waitlist to be among the first 100 users to test the beta for FREE!',
   },
   {
     question: 'Do I need internet all the time?',

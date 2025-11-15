@@ -1,34 +1,52 @@
 /**
- * WARUM: Pricing-Section – zeigt Free vs. Premium Angebot für Waitlist Visitors
- * WIE: Zwei Preis-Karten mit Feature-Listen, die Loan-Value hervorheben
- * WAS: Klärt Erwartung vor Launch (Pricing, Loan-Referral Benefit, Limits)
+ * WARUM: Pricing-Section – zeigt Pay-Per-Report Modell (nicht Subscription-first!)
+ * WIE: 3 Preis-Karten: Free (View-Only), Pay-Per-Report (KES 200), Monthly (KES 400)
+ * WAS: Klärt Erwartung: Kenyans prefer pay-per-use (like M-Pesa) statt Subscriptions
+ *
+ * GTM INSIGHT: 60% Free users, 30% pay KES 200/report, 10% subscribe KES 400/month
  */
 
 const tiers = [
   {
-    name: 'Early Access',
-    price: 'FREE',
-    highlight: '3 months free - First 100 only',
+    name: 'Free',
+    price: 'KES 0',
+    highlight: 'Try M-Recon risk-free',
     features: [
-      '50 transactions/month included',
-      'Bank-ready PDF report + Excel export',
-      'Manual lender sharing',
-      'Community WhatsApp support',
+      '3-month M-Pesa analysis',
+      'View-only report (no download)',
+      'Income & expense breakdown',
+      'Community support',
     ],
-    badge: 'Waitlist Exclusive',
+    badge: 'Always Free',
+    isPopular: false,
   },
   {
-    name: 'Growth (After Trial)',
-    price: 'KES 499/mo',
-    highlight: 'Available after your 3-month trial',
+    name: 'Pay-Per-Report',
+    price: 'KES 200',
+    highlight: 'Perfect for one-time loan applications',
     features: [
-      'Unlimited transactions',
-      'Bank-ready PDF + Excel export (unlimited)',
-      'Automated lender sharing (Banks, SACCOs, Chamas)',
-      'Loan referral introductions',
-      'Priority support + onboarding call',
+      '6-month full report (up to 12 months)',
+      'PDF + Excel export',
+      'Income/Expense categorization',
+      'Ready for SACCOs, Banks, Chamas',
+      'Valid for 30 days',
     ],
-    badge: 'Coming Soon',
+    badge: 'Most Popular',
+    isPopular: true,
+  },
+  {
+    name: 'Monthly',
+    price: 'KES 400/mo',
+    highlight: 'For heavy users & Chama leaders',
+    features: [
+      'Unlimited reports',
+      '12-month history',
+      'Expense tracking dashboard',
+      'Priority support',
+      'Early access to new features',
+    ],
+    badge: 'Best Value',
+    isPopular: false,
   },
 ];
 
@@ -37,32 +55,55 @@ export default function PricingSection() {
     <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-text mb-4">
-          Join the Waitlist - First 100 Get Free Access
+          Simple Pricing - Pay Only When You Need a Report
         </h2>
         <p className="text-center text-text/70 mb-12 max-w-2xl mx-auto">
-          Be among the first to use M-Recon. Early access includes 3 months free, then decide if you want to upgrade for unlimited features.
+          No subscriptions required. Pay KES 200 per report, or go unlimited for KES 400/month. First 100 users get 3 months FREE. 🎉
         </p>
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {tiers.map((tier) => (
-            <div key={tier.name} className="border border-gray-200 rounded-2xl p-8 shadow-sm bg-background/50">
-              <div className="flex items-center justify-between mb-6">
-                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+            <div
+              key={tier.name}
+              className={`border-2 rounded-2xl p-8 shadow-sm relative ${
+                tier.isPopular
+                  ? 'border-primary bg-primary/5 scale-105'
+                  : 'border-gray-200 bg-white'
+              }`}
+            >
+              {/* Badge */}
+              <div className="flex items-center justify-center mb-4">
+                <span className={`px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${
+                  tier.isPopular
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-100 text-gray-600'
+                }`}>
                   {tier.badge}
                 </span>
-                <p className="text-sm text-text/60">{tier.highlight}</p>
               </div>
-              <h3 className="text-2xl font-semibold text-text mb-2">{tier.name}</h3>
-              <p className="text-3xl font-bold text-primary mb-6">{tier.price}</p>
-              <ul className="space-y-3 text-text/80">
+
+              {/* Pricing */}
+              <h3 className="text-xl font-semibold text-text mb-2 text-center">{tier.name}</h3>
+              <p className="text-4xl font-bold text-primary mb-2 text-center">{tier.price}</p>
+              <p className="text-sm text-text/60 mb-6 text-center h-10">{tier.highlight}</p>
+
+              {/* Features */}
+              <ul className="space-y-3 text-text/80 text-sm mb-6">
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2">
-                    <span className="mt-1 h-2 w-2 rounded-full bg-primary" />
+                    <span className="mt-1 h-2 w-2 rounded-full bg-primary flex-shrink-0" />
                     <span>{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* Additional Info */}
+        <div className="text-center mt-8">
+          <p className="text-sm text-text/60">
+            💡 <strong>First 100 users get FREE access for 3 months</strong> - then choose the plan that fits your needs.
+          </p>
         </div>
       </div>
     </section>
